@@ -1,0 +1,185 @@
+try:
+    import Crawler.crawler as GitCrawler
+    import Crawler.repository as GitRepository
+    import langid.langid
+    import multiprocessing
+    from datetime import datetime
+    from functools import partial
+    import json
+    import csv
+    import os
+except ImportError as error:
+    raise ImportError(error)
+
+class Repository():
+    def __init__(self, collector, folder):
+        self.collector = collector
+        self.folder = folder
+
+        if not os.path.exists(self.folder):
+            os.makedirs(self.folder)
+
+    # General information about the repository (Source: API)
+    def about(self):
+        about_file = self.folder + '/about.json'
+
+        if not os.path.isfile(about_file):
+            about = self.collector.get()
+
+            with open(about_file, 'w') as file:
+                json.dump(about, file, indent = 4)
+
+    # Pull requests of the repository (Source: API)
+    def pull_requests(self):
+        pulls_file = self.folder + '/pull_requests.json'
+
+        if not os.path.isfile(pulls_file):
+            pull_requests = self.collector.pull_requests(state='all')
+    
+            with open(pulls_file, 'w') as file:
+                json.dump(pull_requests, file, indent = 4)
+
+    # Contributors of the repository (Source: API)
+    def contributors(self):
+        contributors_file = self.folder + '/contributors.json'
+
+        if not os.path.isfile(contributors_file):
+            contributors = self.collector.contributors(anonymous='true')
+
+            for contributor in contributors:
+                if 'site_admin' in contributor.keys():
+                    # We moved this developers to the internals because we found qualitative evidences that they worked at GitHub
+                    if 'atom' in self.folder:
+                        if contributor['login'] == 'benogle' or contributor['login'] == 'thedaniel' or contributor['login'] == 'jlord':
+                            print contributor['login']
+                            contributor['site_admin'] = True
+                    if 'hubot' in self.folder:
+                        if contributor['login'] == 'bhuga' or contributor['login'] == 'aroben':
+                            contributor['site_admin'] = True
+                    if 'linguist' in self.folder:
+                        if contributor['login'] == 'arfon' or contributor['login'] == 'aroben' or contributor['login'] == 'tnm' or contributor['login'] == 'brandonblack' or contributor['login'] == 'rick':
+                            contributor['site_admin'] = True            
+                    if 'electron' in self.folder:
+                        if contributor['login'] == 'miniak' or contributor['login'] == 'codebytere':
+                            contributor['site_admin'] = True
+
+            with open(contributors_file, 'w') as file:
+                json.dump(contributors, file, indent = 4)
+
+    # Summary with informations of closed pull requests. (Source: API and pull_requests.json)
+    def closed_pull_requests_summary(self):
+        pulls_file = self.folder + '/pull_requests.json'
+        pulls_summary_file = self.folder + '/closed_pull_requests_summary.csv'
+
+        if os.path.isfile(pulls_file) and not os.path.isfile(pulls_summary_file):
+            with open(pulls_file, 'r') as pulls:
+                data = json.load(pulls)
+
+                with open(pulls_summary_file, 'a') as output:
+                    fieldnames = ['pull_request', 'number_of_commits', 'number_of_comments','number_of_reviews','user_type', 'user_login', 'closed_at', 'number_of_additions', 'number_of_deletions','number_of_files_changed','number_of_days', 'message']
+                    writer = csv.DictWriter(output, fieldnames=fieldnames)
+                    writer.writeheader()
+
+                    for pull_request in data:
+                        if pull_request['state'] == 'closed' and pull_request['merged_at'] == None:
+                            try:
+                                number_of_commits = self.collector.commits_in_pull_request(pull_request['number'])
+                                number_of_comments = self.collector.comments_in_pull_request(pull_request['number'])
+                                number_of_reviews = self.collector.reviews_in_pull_request(pull_request['number'])
+                                pull_request_data = self.collector.pull_request(pull_request['number'])
+
+                                number_of_files_changed = None
+                                number_of_additions = None
+                                number_of_deletions = None
+                                message = ''
+
+                                if pull_request_data:
+                                    if 'changed_files' in pull_request_data:
+                                        number_of_files_changed = pull_request_data['changed_files']
+                                    if 'additions' in pull_request_data:
+                                        number_of_additions = pull_request_data['additions']
+                                    if 'deletions' in pull_request_data:
+                                        number_of_deletions = pull_request_data['deletions']
+                                    if 'body' in pull_request_data:
+                                        if pull_request_data['body'] != None:
+                                            message = pull_request_data['body'].encode('utf-8')
+
+                                created_at = datetime.strptime(pull_request['created_at'], '%Y-%m-%dT%H:%M:%SZ')
+                                closed_at = datetime.strptime(pull_request['created_at'], '%Y-%m-%dT%H:%M:%SZ')
+                                number_of_days = (closed_at - created_at).days
+
+                                if pull_request['user']['site_admin'] == True:
+                                    writer.writerow({'pull_request': pull_request['number'], 'number_of_commits': len(number_of_commits), 'number_of_comments': len(number_of_comments), 'number_of_reviews': len(number_of_reviews), 'user_type': 'Internals', 'user_login': pull_request['user']['login'], 'closed_at': closed_at, 'number_of_additions': number_of_additions, 'number_of_deletions': number_of_deletions, 'number_of_files_changed': number_of_files_changed, 'number_of_days': number_of_days, 'message': message})
+                                else:
+                                    writer.writerow({'pull_request': pull_request['number'], 'number_of_commits': len(number_of_commits), 'number_of_comments': len(number_of_comments), 'number_of_reviews': len(number_of_reviews), 'user_type': 'Externals', 'user_login': pull_request['user']['login'], 'closed_at': closed_at, 'number_of_additions': number_of_additions, 'number_of_deletions': number_of_deletions, 'number_of_files_changed': number_of_files_changed, 'number_of_days': number_of_days, 'message': message})
+                            except Exception as ex:
+                                with open('errors.log', 'a') as errors:
+                                    errors.write(ex)
+                                    errors.write('\n Repository:' + self.folder + '\n')
+
+    def messages_language(self):
+        pulls_summary_file = self.folder + '/merged_pull_requests_summary.csv'
+        messages_language_file = self.folder + '/merged_messages.csv'
+        fieldnames = ['pull_request', 'message', 'user_type', 'number_of_characters', 'second_line_is_blank', 'language', 'number_of_additions', 'number_of_deletions', 'number_of_files_changed']
+        writer = csv.DictWriter(open(messages_language_file, 'w'), fieldnames=fieldnames)
+
+        if os.path.isfile(pulls_summary_file):
+            with open(pulls_summary_file, 'r') as summary:
+                reader = csv.DictReader(summary)
+
+                for pull_request in reader:
+                    message = pull_request['message']
+                    number_of_characters = sum(c.isdigit() for c in message)
+                    second_line_is_blank = False
+
+                    lines = message.split('\n')
+
+                    if len(lines) > 1:
+                        if not lines[1].strip():
+                            second_line_is_blank = True
+
+                    language = langid.classify(message)[0]
+                    writer.writerow({'pull_request': pull_request['pull_request'], 'user_type': pull_request['user_type'], 'number_of_characters': number_of_characters, 'second_line_is_blank': second_line_is_blank, 'language': language, 'number_of_additions': pull_request['number_of_additions'], 'number_of_deletions': pull_request['number_of_deletions'], 'number_of_files_changed': pull_request['number_of_files_changed']})
+
+
+
+
+
+
+
+
+
+
+
+def repositories_in_parallel(project):
+    collector = GitRepository.Repository(project['organization'], project['name'], crawler)
+    folder = dataset_folder + project['name']
+
+    R = Repository(collector, folder)
+    # R.about()
+    # R.pull_requests()
+    # R.contributors()
+    # R.closed_pull_requests_summary()
+    R.messages_language()
+
+if __name__ == '__main__':
+    dataset_folder = 'Dataset/'
+    projects = [
+    {'organization':'electron','name':'electron'},
+    {'organization':'github','name':'linguist'},
+    {'organization':'git-lfs','name':'git-lfs'},
+    {'organization':'hubotio','name':'hubot'},
+    {'organization':'atom','name':'atom'}
+    ]
+
+    if not os.path.exists(dataset_folder):
+        os.makedirs(dataset_folder)
+
+    api_client_id = '4161a8257efaea420c94' # Please, specify your own client id
+    api_client_secret = 'd814ec48927a6bd62c55c058cd028a949e5362d4' # Please, specify your own client secret
+    crawler = GitCrawler.Crawler(api_client_id, api_client_secret)
+
+    # Multiprocessing technique
+    parallel = multiprocessing.Pool(processes=4) # Define number of processes
+    parallel.map(partial(repositories_in_parallel), projects)
+
