@@ -379,3 +379,21 @@ class Repository:
         url = url.replace('https://api.github.com/', '')
         information = self.github.request(url)
         return information
+        
+    def files_in_pull_request(self, number):
+        files = []
+        request = ['Waiting for requisition']
+        page_number = 1
+
+        print '[Repository] Returning all files in pull request #' + str(number)
+
+        while(request):
+            request = self.github.request('repos/' + self.organization + '/' + self.name +
+                                          '/pulls/' + str(number) + '/files', ['page=' + str(page_number)])
+            if request:
+                for file in request:
+                    files.append(file)
+            
+            page_number = page_number + 1
+
+        return files

@@ -1,4 +1,4 @@
-pull_request,number_of_commits,number_of_comments,number_of_reviews,user_type,user_login,closed_at,number_of_additions,number_of_deletions,number_of_files_changed,number_of_days,message
+pull_request,number_of_commits,number_of_comments,number_of_reviews,user_type,user_login,closed_at,number_of_additions,number_of_deletions,number_of_files_changed,number_of_days,message,number_of_characters,second_line_is_blank,language
 2774,6,2,0,Internals,technoweenie,2017-12-07 20:11:15,310,86,14,0,"Implements #2712 for Batch API calls.
 
 There is a problem here though. Currently, Transfer Queues and Git Scanners are scoped for a single remote. The updated `newUploadQueue()` builds a new Transfer Queue with the current remote ref.
@@ -10,11 +10,11 @@ echo ""refs/heads/master master refs/heads/tracked 00000000000000000000000000000
  | git lfs pre-push origin master
 ```
 
-This should be calling `objects/batch` at least once for each ref. I made some changes to `commands/uploader.go` to initialize a new Transfer Queue and Git Scanner, but ran into a deadlock issue deep in the Git Scanner."
-2740,1,0,0,Externals,takpare,2017-11-18 22:37:29,17,16,1,0,…d before bailing
-2721,3,1,0,Internals,technoweenie,2017-11-07 19:47:13,5,2,1,0,"Running #2716, with some extra output to see how long CI waits on these files."
-2666,2,2,5,Externals,arguiot,2017-10-15 03:43:12,36,0,2,0,"Hello 👋, I added PRs and issues templates, to fit in the community guidelines."
-2628,1,0,0,Internals,technoweenie,2017-09-28 15:19:25,28,0,1,0,
+This should be calling `objects/batch` at least once for each ref. I made some changes to `commands/uploader.go` to initialize a new Transfer Queue and Git Scanner, but ran into a deadlock issue deep in the Git Scanner.",714,True,en
+2740,1,0,0,Externals,takpare,2017-11-18 22:37:29,17,16,1,0,…d before bailing,19,False,da
+2721,3,1,0,Internals,technoweenie,2017-11-07 19:47:13,5,2,1,0,"Running #2716, with some extra output to see how long CI waits on these files.",78,False,en
+2666,2,2,5,Externals,arguiot,2017-10-15 03:43:12,36,0,2,0,"Hello 👋, I added PRs and issues templates, to fit in the community guidelines.",81,False,en
+2628,1,0,0,Internals,technoweenie,2017-09-28 15:19:25,28,0,1,0,,0,False,en
 2589,1,5,0,Externals,sschuberth,2017-09-15 15:27:45,2,2,1,0,"This way binaries that come with this installer are given precedence
 over any previously installed Git LFS binaries shipping with Git for
 Windows. Users can then run this installer to get a more recent version
@@ -22,45 +22,45 @@ of Git LFS than the one coming with Git for Windows without the need to
 wait for a new Git for Windows release with updated bundled Git LFS
 binaries.
 
-Closes #2587."
+Closes #2587.",381,False,en
 2544,1,1,0,Internals,technoweenie,2017-09-01 22:09:15,57,5,2,0,"Adds a `--all` flag to `git lfs clone` that runs `git lfs fetch --all` right after the `git clone` command.
 
 I realize the command is deprecated as of https://github.com/git-lfs/git-lfs/pull/2526. This is a simple change, and a little useful (see https://github.com/git-lfs/git-lfs/issues/2532#issuecomment-326634994 for use case). Is it worth keeping the `git lfs clone` command around, or should we continue on with the deprecation?
 
-IMO, with the upcoming `delay` filter capabilities, the main need for `git lfs clone` is gone, so we should reject this PR."
-2451,4,2,0,Externals,sebokart,2017-07-28 23:11:40,310,0,10,0,
+IMO, with the upcoming `delay` filter capabilities, the main need for `git lfs clone` is gone, so we should reject this PR.",563,True,en
+2451,4,2,0,Externals,sebokart,2017-07-28 23:11:40,310,0,10,0,,0,False,en
 2418,25,0,0,Externals,t-kin,2017-07-13 22:22:12,140,815,34,0,"
-"
+",2,True,en
 2398,1,0,0,Internals,ttaylorr,2017-07-09 22:05:08,0,0,0,0,"This backports #2385.
 
-Conflicting files:"
+Conflicting files:",41,True,en
 2387,1,8,0,Externals,mlajszczak,2017-07-05 15:36:06,14,7,3,0,"Adjusting the batch size might increase download/upload performance
 significantly.
 
 E.g. in cases where concurrent download/upload of objects is very fast
 but the server has high latency the latter becomes a bottleneck and
-increasing batch size might help."
+increasing batch size might help.",261,False,en
 2370,1,0,0,Internals,technoweenie,2017-06-29 21:14:51,0,0,0,0,"This backports #2369.
 
-Conflicting files:"
-2321,1,0,0,Externals,wisielec,2017-06-11 19:28:33,0,159,1,0,done
-2320,1,0,0,Externals,wisielec,2017-06-11 19:25:11,0,162,1,0,done
-2319,250,0,0,Externals,wisielec,2017-06-11 19:20:23,25860,13795,488,0,
-2318,1,0,0,Externals,wisielec,2017-06-11 19:15:00,0,162,1,0,
-2317,250,0,0,Externals,wisielec,2017-06-11 19:10:45,25860,13795,488,0,
-2316,1,0,0,Externals,wisielec,2017-06-11 04:18:36,1,0,1,0,
+Conflicting files:",41,True,en
+2321,1,0,0,Externals,wisielec,2017-06-11 19:28:33,0,159,1,0,done,4,False,en
+2320,1,0,0,Externals,wisielec,2017-06-11 19:25:11,0,162,1,0,done,4,False,en
+2319,250,0,0,Externals,wisielec,2017-06-11 19:20:23,25860,13795,488,0,,0,False,en
+2318,1,0,0,Externals,wisielec,2017-06-11 19:15:00,0,162,1,0,,0,False,en
+2317,250,0,0,Externals,wisielec,2017-06-11 19:10:45,25860,13795,488,0,,0,False,en
+2316,1,0,0,Externals,wisielec,2017-06-11 04:18:36,1,0,1,0,,0,False,en
 2305,4,0,0,Internals,ttaylorr,2017-06-07 17:49:42,54,0,2,0,"🚧 
 
 ---
 
-/cc @git-lfs/core "
+/cc @git-lfs/core ",34,True,he
 2293,48,0,0,Externals,love-jiw,2017-06-03 18:16:26,3277,583,40,0,"
 [potential-garbanzo-master-3.zip](https://github.com/git-lfs/git-lfs/files/1049777/potential-garbanzo-master-3.zip)
-"
-2275,23,0,0,Externals,didswit1,2017-05-29 10:49:32,759,114,30,0,
+",119,False,lt
+2275,23,0,0,Externals,didswit1,2017-05-29 10:49:32,759,114,30,0,,0,False,en
 2239,1,0,0,Internals,technoweenie,2017-05-19 14:00:10,1,1,1,0,"This backports #2232.
 
-Conflicting files:"
+Conflicting files:",41,True,en
 2231,5,1,0,Internals,technoweenie,2017-05-17 23:33:14,71,46,4,0,"Attempts to fix #2221:
 
 > We have `.gitignore` entries at the base for output directories that can exist at any stage of the tree - ie `obj/...`, `a/b/obj/...`, `c/obj/...` , which are ignored via `.gitignore` rule at the base of the tree
@@ -94,7 +94,7 @@ If only it was that simple :feelsgood:   The commits came in 3 stages:
 
 1. `FastWalkGitRepo` was building the patterns based on the absolute path to the repository files. So, instead of matching `(\A|/)obj(/|\z)` against `a/b/obj/...`, it was matching `(\A|/)/Users/rick/foo/obj(/|\z)` against `/Users/rick/foo/a/b/obj/...`. So it had to be updated to pass the absolute root dir and the relative repository working dir around in the private functions. 
 2. Next, `filepathfilter` was updated to use the regex pattern mentioned above. In doing so, I noticed that the old `(*basicPattern) Match()` was exactly the same as `(*doubleWildcardPattern) Match()`. So, I removed the redundant `basicPattern` type, and gave the remaining pattern types more generic names.
-3. Update `FastWalkGitRepo` tests to ensure it's matching the sub directory."
+3. Update `FastWalkGitRepo` tests to ensure it's matching the sub directory.",1800,True,en
 2217,3,0,0,Internals,ttaylorr,2017-05-12 19:28:35,68,3,3,0,"This pull request begins refactoring the `sshGetExeAndArgs` function in the `lfsapi` package in order to:
 
 1. Evaluate `GIT_SSH_COMMAND` in a shell, and...
@@ -102,11 +102,11 @@ If only it was that simple :feelsgood:   The commits came in 3 stages:
 
 It is currently a work in progress and based off of https://github.com/git-lfs/git-lfs/pull/2216. An inter-diff is available here: https://github.com/git-lfs/git-lfs/compare/config-multi-env...ssh-command-args.
 
----"
+---",425,True,en
 2177,1,3,0,Externals,dankegel,2017-04-24 15:54:04,1,1,1,0,"Little tweak to match distro versioning for golang.  Should fix #2176 
-Only tested on ubuntu 16.04 (see notes in commit log), but the real target is ubuntu 17.04."
-2122,2,2,0,Internals,ttaylorr,2017-03-31 22:15:05,191,1,4,0,This pull request spikes out a simple implementation of what a `git lfs migrate` command might look like.
-2086,1,0,0,Externals,ZaninAndrea,2017-03-25 21:36:51,0,0,0,0,Fixed the markdown of the table in the README.md
+Only tested on ubuntu 16.04 (see notes in commit log), but the real target is ubuntu 17.04.",163,False,en
+2122,2,2,0,Internals,ttaylorr,2017-03-31 22:15:05,191,1,4,0,This pull request spikes out a simple implementation of what a `git lfs migrate` command might look like.,105,False,en
+2086,1,0,0,Externals,ZaninAndrea,2017-03-25 21:36:51,0,0,0,0,Fixed the markdown of the table in the README.md,48,False,en
 2078,4,4,0,Internals,ttaylorr,2017-03-24 02:39:37,181,11,9,0,"This pull request teaches the `git lfs push` & `git lfs pre-push` commands to allow missing objects by default, and enforce that they exist with the `--strict-mode` flag.
 
 From https://github.com/git-lfs/git-lfs/issues/2063:
@@ -124,8 +124,8 @@ Lastly, I think that this was originally targeted for v2.0.2 (from #2063), but p
 ---
 
 /cc @git-lfs/core #2063 
-Closes: #2063"
-2059,250,0,0,Externals,Roman7477,2017-03-20 11:34:48,25402,14794,402,0,
+Closes: #2063",1089,True,en
+2059,250,0,0,Externals,Roman7477,2017-03-20 11:34:48,25402,14794,402,0,,0,False,en
 2045,2,6,0,Externals,bozaro,2017-03-17 07:50:24,132,50,11,0,"Changes summary:
 
  * lfsapi.NewRequest now returns RequestFactory instead of (*http.Request, err);
@@ -136,26 +136,26 @@ Closes: #2063"
  * For SSH based HTTP requests RequestFactory generate http.Request based on
    last `git-lfs-authenticate` response.
 
-This change for fix issue #2018"
-2043,1,0,0,Internals,ttaylorr,2017-03-16 21:31:49,30,0,1,0,
-2024,250,0,0,Externals,mzknwitall702,2017-03-11 17:30:22,10047,8447,265,0,i cant figure out how to use this
+This change for fix issue #2018",513,True,en
+2043,1,0,0,Internals,ttaylorr,2017-03-16 21:31:49,30,0,1,0,,0,False,en
+2024,250,0,0,Externals,mzknwitall702,2017-03-11 17:30:22,10047,8447,265,0,i cant figure out how to use this,33,False,en
 2022,5,0,13,Externals,TheJare,2017-03-10 02:52:31,54,16,4,0,"- fsck only scans current version of objects
 - Files are made readonly after unlocking them, by path or id
 - Locking paths are relative to current directory, not to repo root
 - Fixed errors with unable to stat files if cwd is not the repo root
-- Fixed error on OSX when filesystem path to repo contains uppercase letters. Sometimes $PWD would have them in lowercase, OSX filesystem preserves case but is case insensitive, however the various path functions in Go do not do this. Changed to ask Git itself for the repo-relative paths."
+- Fixed error on OSX when filesystem path to repo contains uppercase letters. Sometimes $PWD would have them in lowercase, OSX filesystem preserves case but is case insensitive, however the various path functions in Go do not do this. Changed to ask Git itself for the repo-relative paths.",537,False,en
 2006,1,0,0,Internals,ttaylorr,2017-03-06 22:22:40,0,0,0,0,"This backports #2004.
 
-Conflicting files:"
+Conflicting files:",41,True,en
 2005,1,0,0,Internals,ttaylorr,2017-03-06 22:22:08,0,0,0,0,"This backports #2004.
 
-Conflicting files:"
-1972,6,0,0,Externals,mmbug,2017-02-23 00:30:52,104,39,8,0,
+Conflicting files:",41,True,en
+1972,6,0,0,Externals,mmbug,2017-02-23 00:30:52,104,39,8,0,,0,False,en
 1945,1,0,0,Internals,technoweenie,2017-02-15 17:30:10,189,6,2,0,"This backports #1921.
 
 Conflicting files:
 - commands/command_track.go
-- test/test-track.sh"
+- test/test-track.sh",90,True,en
 1944,1,1,0,Internals,technoweenie,2017-02-15 17:27:41,3978,521,57,0,"This backports #1861.
 
 Conflicting files:
@@ -183,7 +183,7 @@ Conflicting files:
 - test/test-track.sh
 - test/test-unlock.sh
 - tools/iotools.go
-- tq/api_test.go"
+- tq/api_test.go",644,True,en
 1922,2,5,0,Externals,larsxschneider,2017-02-09 11:28:18,5,0,1,0,"Hi folks,
 
 I discovered two bugs and added a test case to demonstrate them.
@@ -200,22 +200,22 @@ Reproducible with latest master and v1.5.5 on macOS and Windows using the filter
 @ttaylorr any idea? Pretty weird number 🤔 
 
 **BUG 2**
-Empty pointers are listed as malformed pointers."
-1911,250,0,0,Externals,sakerhead,2017-02-03 10:49:59,6436,7211,196,0,All
-1903,1,1,0,Externals,vrajanap,2017-01-31 22:45:24,5,5,1,0,
-1869,9,11,8,Externals,schuCriX,2017-01-16 15:22:36,275,9,8,0,allow for sslKey and sslCert in gitconfig http subsection
-1854,1,1,0,Internals,ttaylorr,2017-01-12 16:01:45,30,0,1,0,This backports #1820.
-1845,2,6,0,Externals,cbartz,2017-01-09 17:40:01,0,0,0,0,Fixed wrong key in documentation.
-1836,5,1,9,Internals,technoweenie,2017-01-06 18:07:51,96,16,3,0,This adds an integration test for NTLM authentication.
+Empty pointers are listed as malformed pointers.",370,True,en
+1911,250,0,0,Externals,sakerhead,2017-02-03 10:49:59,6436,7211,196,0,All,3,False,en
+1903,1,1,0,Externals,vrajanap,2017-01-31 22:45:24,5,5,1,0,,0,False,en
+1869,9,11,8,Externals,schuCriX,2017-01-16 15:22:36,275,9,8,0,allow for sslKey and sslCert in gitconfig http subsection,57,False,en
+1854,1,1,0,Internals,ttaylorr,2017-01-12 16:01:45,30,0,1,0,This backports #1820.,21,False,en
+1845,2,6,0,Externals,cbartz,2017-01-09 17:40:01,0,0,0,0,Fixed wrong key in documentation.,33,False,en
+1836,5,1,9,Internals,technoweenie,2017-01-06 18:07:51,96,16,3,0,This adds an integration test for NTLM authentication.,54,False,en
 1830,1,0,0,Internals,ttaylorr,2017-01-05 17:56:18,0,0,0,0,"This backports #1801.
 
-Conflicting files:"
+Conflicting files:",41,True,en
 1829,2,13,0,Externals,larsxschneider,2017-01-05 16:13:54,11,1,2,0,"This was useful for me to inspect the size of LFS files.
  
 There are two somewhat controversial decisions in there and I would like to get your feedback on them: 
 
 1. I print size in MB only. Everything else made the code more complicated for little gain IMHO.
-2. I pad the size with 6 chars to align it nicely... this would of course break if someone tracks a crazy large file"
+2. I pad the size with 6 chars to align it nicely... this would of course break if someone tracks a crazy large file",382,True,en
 1826,7,1,0,Internals,technoweenie,2017-01-04 21:12:35,154,147,21,0,"This breaks the `tq.Manifest` constructor, so that it accepts an `*lfsapi.Client` instance. This is how transfer queue and adapters get access to the `*lfsapi.Client` to make API requests. It also removes some references to the `CurrentRemote` property on `*config.Configuration` objects. Since the `*lfsapi.Client` already has os and git env objects, there's no need to pass them in manually. 
 
 I'm not totally sold on whether the manifest constructor should accept `operation` and `remote` strings, vs just an `access` string. I think a future change could remove the need for both values, leaving us with a single `NewManifest(c *lfsapi.Client)` constructor. 
@@ -223,7 +223,7 @@ I'm not totally sold on whether the manifest constructor should accept `operatio
 TODO:
 
 * [ ] Review, merge (locking) #1824
-* [ ] Change base to `api-master`"
+* [ ] Change base to `api-master`",747,True,en
 1817,8,5,0,Internals,ttaylorr,2016-12-30 19:40:16,210,17,9,0,"This pull-request implements a post-merge hook to unlock all locked (owned) files merged back into the `master` branch of a repository.
 
 Here's a breakdown of what happened:
@@ -241,7 +241,7 @@ Some things I'd like to consider before merging:
 
 ---
 
-/cc @git-lfs/core  "
+/cc @git-lfs/core  ",858,True,en
 1816,8,2,0,Internals,ttaylorr,2016-12-30 19:35:06,217,17,10,0,"This pull-request adds a `pre-commit` hook that detects and prevents commits changing locked files owned by someone other than the current committer.
 
 This hook looks at the currently staged files when it is called (before the user is told to edit the `.git/COMMIT_EDITMSG`) and inspects each one of them to see if they are locked by someone other than the current committer. The current committer is used since it is the latest and most accurate information determinable about who will commit the file.
@@ -261,24 +261,24 @@ Some things that we should investigate before merging:
 ---
 
 /cc @git-lfs/core 
-"
+",1069,True,en
 1808,1,1,0,Internals,ttaylorr,2016-12-27 20:06:55,58,3,7,0,"This backports #1689.
 
 Conflicting files:
 - config/version.go
 - lfs/lfs.go
-- script/windows-installer/inno-setup-git-lfs-installer.iss"
+- script/windows-installer/inno-setup-git-lfs-installer.iss",134,True,en
 1804,1,0,0,Internals,ttaylorr,2016-12-26 23:02:49,1,0,1,0,"This backports #1796.
 
-Conflicting files:"
+Conflicting files:",41,True,en
 1766,6,0,0,Internals,technoweenie,2016-12-13 19:15:10,73,67,11,0,"This copies `config.Environment` to `tq.Environment`, and removes explicit coupling with `*config.Configuration` in `tq.NewTransferQueue()`. Instead, they depend on possibly receiving a `config.Environment` in a `tq.WithGitEnv()` option.  I opted to export `tq.Environment` so the `WithGitEnv()` signature makes sense to end users.
 
-I'm not sold on this approach yet. I have another idea that I wanna experiment with first. "
+I'm not sold on this approach yet. I have another idea that I wanna experiment with first. ",426,True,en
 1749,1,9,1,Internals,ttaylorr,2016-12-08 16:54:48,32,0,1,0,"This pull request introduces a failing test designed to reproduce the bug found in #1726.
 
 ---
 
-/cc @AndrewJDR @git-lfs/core "
+/cc @AndrewJDR @git-lfs/core ",129,True,en
 1744,3,1,4,Internals,ttaylorr,2016-12-06 23:08:45,223,0,2,0,"~~⚠️  this PR is based against the [`tq-worker-queue`][1] tree to make the diff easier to view. Once [that PR][2] is merged into `tq-master`, I'll update the base of this to point at `tq-master` as well.~~
 
 ---
@@ -306,20 +306,20 @@ Couple of things to consider:
 [1]: https://github.com/git-lfs/git-lfs/tree/tq-worker-queue
 [2]: https://github.com/git-lfs/git-lfs/pull/1742
 [3]: https://github.com/git-lfs/git-lfs/pull/1744/commits/24fc67f8554573d74cbadbe594b71965234c1765#diff-aa8152c7da8b9e591de386d91ba55952R32
-[4]: https://github.com/git-lfs/git-lfs/pull/1744/commits/24fc67f8554573d74cbadbe594b71965234c1765#diff-aa8152c7da8b9e591de386d91ba55952R97"
-1728,3,1,0,Internals,technoweenie,2016-11-30 21:13:57,40,0,1,0,Fixes #1718 (hopefully!)
-1722,250,2,0,Externals,joopmeijer1984,2016-11-28 10:20:19,7736,2497,228,0,
-1692,250,1,0,Externals,AlphaRomeo13,2016-11-19 03:24:00,6568,4535,226,0,Mybe This i want
+[4]: https://github.com/git-lfs/git-lfs/pull/1744/commits/24fc67f8554573d74cbadbe594b71965234c1765#diff-aa8152c7da8b9e591de386d91ba55952R97",3249,True,en
+1728,3,1,0,Internals,technoweenie,2016-11-30 21:13:57,40,0,1,0,Fixes #1718 (hopefully!),24,False,en
+1722,250,2,0,Externals,joopmeijer1984,2016-11-28 10:20:19,7736,2497,228,0,,0,False,en
+1692,250,1,0,Externals,AlphaRomeo13,2016-11-19 03:24:00,6568,4535,226,0,Mybe This i want,16,False,en
 1682,1,0,0,Internals,technoweenie,2016-11-18 16:17:01,0,0,0,0,"This backports #1680.
 
-Conflicting files:"
+Conflicting files:",41,True,en
 1681,1,0,0,Internals,technoweenie,2016-11-18 16:12:43,0,0,0,0,"This backports #1680.
 
-Conflicting files:"
-1673,1,1,0,Internals,technoweenie,2016-11-17 17:27:09,2,0,2,0,My push/pre-push refactoring (https://github.com/git-lfs/git-lfs/pull/1128) inadvertently broke dry runs of these commands.
+Conflicting files:",41,True,en
+1673,1,1,0,Internals,technoweenie,2016-11-17 17:27:09,2,0,2,0,My push/pre-push refactoring (https://github.com/git-lfs/git-lfs/pull/1128) inadvertently broke dry runs of these commands.,123,False,en
 1672,4,2,0,Internals,technoweenie,2016-11-17 15:58:54,24,9,3,0,"Backport #1671 for v1.4.4.
 
-Note: The CircleCI build is fine, since this release branch doesn't have a `circle.yml` file."
+Note: The CircleCI build is fine, since this release branch doesn't have a `circle.yml` file.",123,True,en
 1668,1,1,0,Internals,ttaylorr,2016-11-16 18:18:27,9,9,1,0,"Here's a PR that prefers exiting with a non-zero code from the LFS process if we encountered an error, rather than writing the `status=error\n` sentinel.
 
 @larsxschneider suggested this to me as a cleaner and more consistent alternative to writing the above sentinel thereby placing the responsibility of exiting in LFS's hands rather than Git's.
@@ -328,7 +328,7 @@ I'm not sure that I agree that this is necessarily cleaner, but I'd love to get 
 
 ---
 
-/cc @technoweenie @larsxschneider "
+/cc @technoweenie @larsxschneider ",531,True,en
 1661,2,1,0,Internals,technoweenie,2016-11-15 23:22:03,145,155,5,0,"#1650 needs a way to test against generated git repos. I wanted to use `*test.Repo` for this, but it only ever writes LFS objects. So, this PR refactors that code so that it uses a `test.BlobInput` interface, giving me an opportunity to write a `test.FileInput` implementation.
 
 This changes the interface to construct the `test.LFSInput` objects:
@@ -346,7 +346,7 @@ It's longer, but explicit. Also, it's easy to add a static string:
 
 This also removes the custom random content generator. I'm not sure we need anything fancy, when tests only generate up to 42 bytes, and the api command only generates up to 250.
 
-/cc @sinbad"
+/cc @sinbad",783,True,en
 1646,1,17,1,Externals,larsxschneider,2016-11-12 20:41:57,54,1,3,0,"Goal (implemented as proof of concept demo):
 If a file is not in the GitLFS cache, then GitLFS returns an empty file upon Git's smudge request and starts the download right away. At the end of the ""process-filter"" protocol GitLFS waits for the downloads to finish and writes the files to the Git working tree.
 
@@ -354,19 +354,19 @@ If a file is not in the GitLFS cache, then GitLFS returns an empty file upon Git
 
 ---
 
-@ttaylorr If you like it then please change the code to use the proper parallel download machinery. 😉 "
-1643,1,7,0,Externals,jjgod,2016-11-11 00:18:42,2,0,1,0,Fix #1562.
+@ttaylorr If you like it then please change the code to use the proper parallel download machinery. 😉 ",510,False,en
+1643,1,7,0,Externals,jjgod,2016-11-11 00:18:42,2,0,1,0,Fix #1562.,10,False,en
 1633,1,2,0,Internals,technoweenie,2016-11-09 22:21:56,7,4,1,0,"@ksurent How’s this look?
 
-/cc https://github.com/github/git-lfs/issues/1628#issuecomment-259301295"
+/cc https://github.com/github/git-lfs/issues/1628#issuecomment-259301295",101,True,en
 1625,2,8,14,Externals,sinbad,2016-11-07 15:38:31,309,169,8,0,"Part 1 resubmission of #1590
 
 This refactors logic into a dedicated package called `locking`, so that secondary functionality can be added in a re-usable place. Makes calls to a lock cache which will be implemented in a later PR (a replacement for BoltDB which was used in #1590).
 
 Also involved moving `ChannelWrapper` into tools since it is a useful abstraction of working with parallel result and error channels while avoiding mistakes; used for the refactored `SearchLocks` so streamed results are avaialble if needed.
-"
+",528,True,en
 1610,1,3,0,Externals,russplaysguitar,2016-10-26 18:37:33,2,2,1,0,"Just saw them and thought I'd fix them really quick
-"
+",52,True,en
 1604,1,0,0,Externals,chalstrick,2016-10-24 09:12:40,0,13,1,0,"Sometimes it makes sense to use a proxy even when the remote host is localhost
 or 127.0.0.1. git-lfs in contrast to e.g. native git does not allow to use a
 proxy when talking to localhost. Remove this special treatment of localhost
@@ -379,7 +379,7 @@ point to mitmproxy. I was able to see all the traffic between the client and
 the local git server in mitmproxy but the the communication between the client
 and the lfs server was hidden because git-lfs ignored the proxy settings
 because the hostname was localhost.
-"
+",783,False,en
 1597,2,2,0,Internals,ttaylorr,2016-10-19 21:38:28,91,76,2,0,"This pull-request migrates the `lfs.catFileBatchCheck` method over from `lfs/scanner.go` and into the new `scanner` package.
 
 Since there are no public uses of this method outside of `lfs/scanner.go`, this migration was pretty straightforward.
@@ -388,7 +388,7 @@ The next PR will refactor this function into a new type in the `scanner` package
 ## 
 
 /cc @technoweenie @sinbad @sschuberth @rubyist @larsxschneider 
-"
+",508,True,en
 1596,4,1,0,Internals,ttaylorr,2016-10-19 17:29:34,300,197,9,0,"This pull-request moves the `RevListShas` implementation into the new `scanner` package, and delegates calls into it.
 
 This is the first pull-request in a series that I'm working on which will introduce a refactored implementation of what's found in `lfs/scanner.go` into a new `scanner` package, which will operate as an async pipeline. Currently, the scanner must complete each operation in its entirety before we even kick off the transfer queue. This works fine when dealing with small working trees, but is problematic when we have to buffer a large amount of Git blobs in memory before transferring them.
@@ -401,14 +401,14 @@ I'm planning on leaving all of the existing calling code as-is, and keep relying
 ## 
 
 /cc @technoweenie @rubyist @sinbad @sschuberth @larsxschneider 
-"
+",1127,True,en
 1595,9,10,7,Internals,ttaylorr,2016-10-19 17:29:27,203,118,3,0,"This pull-request refactors the original implementation of the `RevListShas` method into a type that retains the same behavior.
 
 This is done such that we can easily manipulate a channel of revs coming out of this function. That is not made use of (yet), but will become the case in a subsequent PR.
 ## 
 
 /cc @technoweenie @rubyist @sinbad @sschuberth @larsxschneider 
-"
+",369,True,en
 1590,39,9,5,Externals,sinbad,2016-10-17 16:54:56,15032,328,77,0,"OK this branch has been running for too long and it's still not ready yet 😞 **Not ready for merging**, this is just for visibility/discussion.
 
 The general thrust of this work is to try to expand on the locking feature to assist with workflow, to avoid accidents that require work to be lost later. This part of the work is about setting files to be read-only when they're marked as needing locking, and are not locked by the current user, as a kind of 'rumble strip' to hopefully stop you from accidentally doing work on a file before you realise you should have checked the locking situation. This has required the introduction of a bunch of new concepts:
@@ -423,20 +423,20 @@ Open questions / risk factors right now:
 - Edge cases / undefined behaviour with read-only working copy files
 
 I think this work is going to be required to make locking workable in practice but it's not there yet. Feel free to comment but I'm not proposing we merge this yet.
-"
-1576,1,7,2,Externals,sschuberth,2016-10-13 05:34:20,0,0,0,0,
+",1791,True,en
+1576,1,7,2,Externals,sschuberth,2016-10-13 05:34:20,0,0,0,0,,0,False,en
 1572,1,6,0,Internals,ttaylorr,2016-10-11 17:48:32,0,1,2,0,"The old `WizardSmallImageFile` compiles successfully under InnoSetup v5.5.9(a), but fails at runtime with an error saying, ""Bitmap image invalid"".
 
 I re-exported the image on macOS using 24bit colorspace with RGB (no alpha) and 8-bits per channel. This causes the installer to build and run successfully, but the image is invisible in the installer.
 ## 
 
 /cc @technoweenie @sschuberth 
-"
-1551,6,0,0,Externals,Som-iiitb,2016-10-01 21:16:04,15,12,4,0,
+",386,True,en
+1551,6,0,0,Externals,Som-iiitb,2016-10-01 21:16:04,15,12,4,0,,0,False,en
 1548,23,0,0,Externals,benda1996,2016-09-30 08:07:14,1381,281,24,0,"im new just exploring
-"
+",22,True,en
 1541,2,1,0,Internals,technoweenie,2016-09-26 16:49:58,34,1,1,0,"Wrote a test attempting to replicate https://github.com/github/git-lfs/issues/1537.
-"
+",84,True,en
 1521,2,3,0,Internals,ttaylorr,2016-09-12 22:39:56,64,5,3,0,"@petermarko points out in https://github.com/github/git-lfs/issues/1519 that `git-lfs uninstall` will remove all `.gitconfig` values in the `filters.lfs` section forcefully.
 
 In a scenario where a user runs `git lfs install`, their .gitconfig looks something like:
@@ -463,12 +463,12 @@ This PR is a first step to some upgrade improvements that I'd like to ship to ou
 ## 
 
 /cc @technoweenie @petermarko #1519
-"
+",1473,True,en
 1513,3,3,0,Externals,sschuberth,2016-09-09 14:51:57,0,0,0,0,"This should also fix integration tests hanging in AppVeyor CI as the system-wide credential helper Git for Windows sets is not used anymore, and not popping up a GUI for entering credentials anymore.
-"
+",200,True,en
 1512,2,3,0,Externals,sschuberth,2016-09-09 14:48:30,0,0,0,0,"We already set this globally in setup().
-"
-1509,6,1,5,Internals,ttaylorr,2016-09-06 19:38:47,11,1,1,0,
+",41,True,en
+1509,6,1,5,Internals,ttaylorr,2016-09-06 19:38:47,11,1,1,0,,0,False,en
 1479,1,2,0,Externals,dpursehouse,2016-08-23 06:58:19,6,0,1,0,"When the repository has lots of commits by authors with incomplete
 or inconsistent names, the output of `git shortlog` is not much use:
 
@@ -501,7 +501,7 @@ $ git shortlog -n -c -s | head -10
     21  Brett Randall
     20  Brandon Keepers
 ```
-"
+",698,False,en
 1472,1,1,0,Internals,technoweenie,2016-08-19 21:46:52,4,0,1,0,"Building in the [debian 9 docker image](https://github.com/git-lfs/build-dockers/blob/0b0b98d4214df67e5d123cb3236dc680e29e07f5/debian/9/Dockerfile) fails with this:
 
 ```
@@ -630,17 +630,17 @@ debian/rules:23: recipe for target 'binary' failed
 make: *** [binary] Error 123
 dpkg-buildpackage: error: debian/rules binary gave error exit status 2
 ```
-"
+",9415,True,en
 1456,10,4,0,Internals,technoweenie,2016-08-16 22:05:15,416,57,15,0,"Updates #969 against the current master. This was not a straight forward update because the code base has gone through a pretty major refactoring since then.
 ## To-do:
 - [ ] Ensure we're always sending full server side refs: refs/tags/v1.0, refs/heads/master. Never client ref names.
 - [ ] Integration tests that test git lfs push, git lfs fetch on repos where the local and remote branches don't match.
-"
+",404,False,en
 1442,1,0,0,Internals,ttaylorr,2016-08-12 19:26:20,25,4,6,0,"This backports #1441.
 
 Conflicting files:
-"
-1421,3,0,0,Externals,sakerhead,2016-08-07 09:51:13,14,22,3,0,
+",42,True,en
+1421,3,0,0,Externals,sakerhead,2016-08-07 09:51:13,14,22,3,0,,0,False,en
 1382,1,25,49,Externals,larsxschneider,2016-07-18 13:38:32,451,9,15,0,"This is my first WIP version of a Git/Git-LFS stream filter. Please keep in
 mind that I have little go-lang knowledge and experience. Therefore
 I would be happy to receive a very strict review to improve my go-lang
@@ -765,7 +765,7 @@ dramatic results on Windows.
 
 Thanks,
 Lars
-"
+",4867,False,en
 1378,2,2,5,Externals,VladimirKhvostov,2016-07-17 05:00:19,84,6,2,0,"GetAuthType method in https://github.com/github/git-lfs/blob/master/httputil/request.go#L174 only takes first WWW-Authenticate header into account. If server sends the following headers:
 
 ```
@@ -779,21 +779,21 @@ the code returns ""basic"", which is definitely not correct in this case.
 This change fixes this issue. 
 
 Bug: https://github.com/github/git-lfs/issues/1377
-"
+",429,True,en
 1376,8,0,0,Internals,technoweenie,2016-07-15 16:52:09,8,7,3,0,"Trying to figure out why `script/integration` fails, when all the tests appear to pass. 
 
 Built on #1375.
-"
+",106,True,en
 1370,1,2,0,Externals,sinbad,2016-07-13 15:21:37,1,1,1,0,"Fixes #1363 
 
 Note needs `egrep` to reliably use conditionals in my tests.
-"
+",75,True,en
 1362,1,0,0,Externals,larsxschneider,2016-07-12 06:21:44,1,1,1,0,"more info here: https://github.com/github/git-lfs/pull/1361#issuecomment-231876123
-"
+",83,True,en
 1340,1,1,0,Externals,ReDetection,2016-06-30 20:20:06,17,8,2,0,"Fixes #1330. 
 I'm not golang expert, feel free to spot a problem. In fact, I need help with debug message — it was in the `SetAuthType` and now it's not, because resubmitting might not happen anymore, and I did not copied it to every usage. Maybe, I should just change the message itself, so I would just indicate preference to resubmit? 
-"
-1247,1,1,0,Internals,ttaylorr,2016-05-24 22:57:26,3,3,2,0,
+",341,False,en
+1247,1,1,0,Internals,ttaylorr,2016-05-24 22:57:26,3,3,2,0,,0,False,en
 1225,1,3,2,Internals,technoweenie,2016-05-16 23:19:47,26,8,2,0,"Fixes #1202 by skipping any tests that fail:
 
 ``` bash
@@ -826,12 +826,12 @@ I'm not crazy about it, but it at least unblocks #1201. The upload tests are all
 Maybe in #1201's implementation, `script/cibuild` can run tests against a repo-less source directory when given a special ENV var, so it can be added to the suite of Travis tests in `.travis.yml`. This would catch future regressions.
 
 /cc @javabrett @sinbad
-"
+",1481,True,en
 1212,1,7,0,Externals,javabrett,2016-05-10 09:46:10,6,1,1,0,"…ny command.  Fixed #1210 .
-"
-1208,1,2,0,Externals,hbons,2016-05-06 15:45:53,1,1,1,0,
+",30,True,da
+1208,1,2,0,Externals,hbons,2016-05-06 15:45:53,1,1,1,0,,0,False,en
 1194,1,8,0,Externals,javabrett,2016-05-03 00:31:45,3,1,1,0,"… string. Fixed #1192.
-"
+",25,True,bn
 1180,8,3,0,Internals,technoweenie,2016-04-25 14:41:54,10,1,1,0,"I'm trying a new thing. Previously, I created an issue [like this](https://github.com/github/git-lfs/issues/844) to track changes for the upcoming version. By making a PR against the readme, we remove any need to do any markdown cleanup with the release notes, and we rely on git to keep a history of changes to this changelog.
 
 If we have any TODOs for upcoming releases, they can still be added as task list items to this PR thread. Only completed things will go in the changelog.
@@ -840,22 +840,22 @@ If we have any TODOs for upcoming releases, they can still be added as task list
 - [x] Improve guidance on how to resolve a failure of `git lfs install` because of existing hooks (@sinbad)
   https://github.com/github/git-lfs/pull/1117
 - [ ] Account for url.<url>.insteadOf in all operations #1117
-"
+",870,True,en
 1173,3,5,4,Internals,jonmagic,2016-04-22 21:50:02,88,1,2,0,"This may be a possible solution to https://github.com/github/git-lfs/issues/1125 but we are Go and git-lfs newbs so we could use some guidance.
 - Is this approach even close to how y'all would do this?
 - Should we create a new test file for lfs/http.go so that we can test this method specifically or should we add an integration test, or something else entirely?
 
 /cc @LizzHale 
-"
-1147,1,3,0,Externals,pabloguerrero,2016-04-14 20:51:49,1,1,1,0,
+",380,False,en
+1147,1,3,0,Externals,pabloguerrero,2016-04-14 20:51:49,1,1,1,0,,0,False,en
 1141,1,1,0,Externals,nirgeier,2016-04-13 01:38:50,40,27,1,0,"Improve README file
-"
+",20,True,en
 1133,14,4,7,Externals,sinbad,2016-04-08 13:25:09,302,79,25,0,"Replaces #727 
 
 Generates the zsh completion script dynamically from a combination of Cobra data and the ManPages dictionary. Tested with ohmyzsh so far.
 
 So far only works with `git-lfs` command, not `git lfs`. I've tried to make this work and I can get as far as overriding the `git` completion in this script, but can't figure out how to only override it for the `lfs` subcommand and delegate back to the original completions for everything else. My script-fu is not strong enough yet.
-"
+",489,True,en
 1117,1,11,7,Externals,artagnon,2016-03-31 02:25:58,0,0,0,0,"We tackle the problem in two places: first, when a raw clone url is given, we
 must load possible replacement for substrings from the config; second, when we
 are fetching a certain remote's url from the config, we must try to replace the
@@ -863,8 +863,8 @@ relevant part of the url.
 
 The implementation iterates over the map insteadOfs, and attempts to
 strings.Replace() the url with all the key-value pairs.
-"
-1106,3,1,0,Externals,chittunoo,2016-03-22 17:18:27,79,13,5,0,
+",389,False,en
+1106,3,1,0,Externals,chittunoo,2016-03-22 17:18:27,79,13,5,0,,0,False,en
 1103,1,2,0,Externals,javabrett,2016-03-22 09:43:38,1,1,1,0,"Current API cannot re-read package File contents.  Found during work on #1074. See also https://github.com/computology/packagecloud-ruby/issues/14.
 
 The symptoms here are that a second and subsequent upload based on the same `Package` object fail.  Proxy debug shows that the POSTed form contains empty file data.  This is because `Package` opens the `File` (when passed as a string path), but `Client` reads the contents into MIME during the put package.  There's no close/reopen/rewind on the file, so on subsequent calls there is no data left.
@@ -872,7 +872,7 @@ The symptoms here are that a second and subsequent upload based on the same `Pac
 Ideally `Package` bug above could be fixed such that that class reads the MIME bytes and closes the file it opens, so that it can be reused.  But for now, just create a fresh `Package` for each upload.
 
 This may or may not account for sparse package coverage for 1.1.2 on packagecloud.
-"
+",834,True,en
 1085,1,13,3,Externals,epriestley,2016-03-17 23:24:42,37,0,2,0,"Fixes issue #1069, sort of, in theory. This is likely more of a starting point. Major issues:
 - No meaningful test coverage.
 - Pushing to a raw URL scans and tries to push every object in the repository.
@@ -904,7 +904,7 @@ A better strategy might be:
 - Pass the list of remote refs to `--not` instead of `--remote <remote>`.
 
 I can pursue this refinement, but didn't want to get too far into things if I'm on the wrong track.
-"
+",1432,False,en
 1079,1,3,0,Internals,technoweenie,2016-03-17 15:28:00,23,0,1,0,"The scanner code doesn't handle git errors at all. I would expect this `git lfs push` command to fail, but it just returns successfully with no output. The problem is that the rev-list call is erroring, and git lfs is just rolling with it.
 
 ```
@@ -916,9 +916,9 @@ I can pursue this refinement, but didn't want to get too far into things if I'm 
     Use '--' to separate paths from revisions, like this:
     'git <command> [<revision>...] -- [<file>...]'
 ```
-"
-1060,10,0,0,Externals,miumok98,2016-03-06 23:55:38,124,86,5,0,
-1058,13,0,0,Externals,steffix0168,2016-03-03 07:38:01,187,36,26,0,
+",624,True,en
+1060,10,0,0,Externals,miumok98,2016-03-06 23:55:38,124,86,5,0,,0,False,en
+1058,13,0,0,Externals,steffix0168,2016-03-03 07:38:01,187,36,26,0,,0,False,en
 1040,28,7,8,Internals,technoweenie,2016-02-24 19:14:10,693,254,15,0,"When pushing a repository to a new host, Git LFS pushes each branch or tag individually. This leads to a lot of skipped objects. Assuming all branches are based on master, then there should be a lot of duplicate objects. Here's a push with a repository with 502 objects: 501 in master, and an extra in another branch:
 
 ``` bash
@@ -958,50 +958,50 @@ To https://git-server/technoweenie/symmetrical-octo-funicular
  * [new branch]      master -> master
 git push 4 --all  1.62s user 0.89s system 5% cpu 45.280 total
 ```
-"
+",1669,True,en
 1038,6,2,3,Internals,technoweenie,2016-02-24 18:48:27,98,70,4,0,"This is a quick code spike to getting the `git lfs push` command to run on individual local refs when given `--all`. Could be useful for sending ref info in #1036.
 
 This may run into issues if the local branch doesn't match the remote tracking branch...
-"
+",254,True,en
 1037,1,1,0,Internals,technoweenie,2016-02-24 18:20:54,7,5,2,0,"More error handling from #1023.
-"
+",32,True,en
 1036,10,6,0,Internals,technoweenie,2016-02-24 16:52:16,410,39,11,0,"Re-applied #969 against the current master, fixing some merge conflicts.
-"
+",73,True,en
 1027,1,0,0,Internals,technoweenie,2016-02-23 17:53:29,2,1,1,0,"This backports #1023.
 
 Conflicting files:
-"
+",42,True,en
 1024,1,12,0,Externals,sinbad,2016-02-23 16:46:53,18,0,5,0,"Addresses #1021 in the most minimal way possible for now.
 
 I suggest moving to standard Go vendoring and flipping this option to `GO15VENDOREXPERIMENT=1` but that will be a bigger change. We can either use `git submodule` or `git subtree` but personally I'd prefer `subtree` because it has fewer edge cases (and we've embedded the vendor packages in this repo until now anyway). I can do that as a follow up PR if you agree.
-"
-1019,1,2,0,Externals,bradh,2016-02-20 22:02:33,0,0,0,0,
+",425,True,en
+1019,1,2,0,Externals,bradh,2016-02-20 22:02:33,0,0,0,0,,0,False,en
 1008,2,9,0,Externals,rlaakkol,2016-02-16 15:33:20,4,0,1,0,"Adding the Wait()s in the goroutines which handled the stdin:s of the processes caused some random failures, but this way seems to work better!
-"
+",144,True,en
 999,1,3,1,Externals,rlaakkol,2016-02-12 10:08:52,4,0,1,0,"For issue #996 
 
 When pushing a large amount of commits, an increase in the number of zombie processes can be detected from the process table, specifically 3 new zombies for each commit that is handled. This was fixed by calling exec.Wait() for the commands that were called using exec.Start().
 
 I'm not entirely sure if the calls for exec.Wait() are in their appropriate places here, but at least this seems to do the trick for me.
-"
+",433,True,en
 969,9,18,2,Externals,dluksza,2016-02-03 11:06:08,410,37,11,0,"Adds ""ref"" parameter extracted from git pre-push hook into the upload
 request. This way servers with branch access permissions can enforce
 them before large objects are transfered.
 
 Issue: #845
-"
+",194,False,en
 962,3,1,0,Internals,technoweenie,2016-01-29 20:46:30,84,0,3,0,"Adds tests to #927.
-"
-929,1,0,0,Externals,sander120786,2016-01-11 21:55:43,10,8896,74,0,
+",20,True,en
+929,1,0,0,Externals,sander120786,2016-01-11 21:55:43,10,8896,74,0,,0,False,en
 927,1,5,0,Externals,rikdev,2016-01-11 06:47:42,0,0,0,0,"If git lfs repository is used as submodule then git lfs can't find configure file (.lfsconfig or .gitconfig), because git lfs looks for the configure file in the directory <root_repository>/.git/modules (GIT_WORK_TREE) and the configure file is located in directory <root_repository>/<submodule_path>.
-"
-918,250,0,0,Externals,Ignorant720,2016-01-04 05:52:29,13000,1281,167,0,
+",302,True,en
+918,250,0,0,Externals,Ignorant720,2016-01-04 05:52:29,13000,1281,167,0,,0,False,en
 869,1,2,0,Externals,sinbad,2015-11-26 16:41:44,0,9,1,0,"I'm not sure what problem this was originally solving but it causes false-positives in SourceTree and some scripts that I run. 
 
 Common perfectly valid cases where this can happen include using the '-c' option to git on any setting that's already specified in the gitconfig. It's normal to want to override settings like this sometimes and the warnings look scary when everything is fine.
 
 If there's a more specific way to solve the original problem please let me know.
-"
+",471,True,en
 850,9,12,4,Externals,noamt,2015-11-21 03:24:26,95,27,10,0,"Adding the following metadata headers to the upload request:
 - Object ID
 - Original file name
@@ -1009,7 +1009,7 @@ If there's a more specific way to solve the original problem please let me know.
 - Git ref
 
 Adding these headers will benefit smart remote repositories and will help improve BLOB management and tracking.
-"
+",230,False,en
 830,1,0,0,Externals,AndrewJDR,2015-11-12 05:12:48,5,8,1,0,"This change makes it so --skip does the smudge if the file
 is in cache. It still skips automatic downloads as one would
 expect.
@@ -1023,7 +1023,7 @@ follows:
 ""Skip automatic downloading of objects on clone or pull.""
 So even after this change we're still in line with the
 documentation.
-"
+",492,False,en
 822,3,1,0,Externals,jiangxin,2015-11-09 12:05:39,20,7,4,0,"Some paths are real paths (all symlinks are resolved) like LocalWorkingDir and git.RootDir(),
 which are from the command `git rev-parse --show-toplevel`. But others (like LocalGitDir and
 may others from os.Getwd() are not.  This is why when `git lfs trace foo` on a symlink worktree,
@@ -1034,25 +1034,25 @@ foo is outside repository
 ```
 
 I found there is a similar PR #818 , maybe can be merged together. @sinbad 
-"
+",410,False,en
 816,2,1,2,Externals,difro,2015-11-05 06:13:12,9,2,4,0,"This will normalize all directories for proper comparison.
 
 This fixes #811 
-"
-803,250,0,0,Externals,ritthisakdi,2015-10-29 14:18:54,26151,5398,445,0,
+",77,True,en
+803,250,0,0,Externals,ritthisakdi,2015-10-29 14:18:54,26151,5398,445,0,,0,False,en
 752,2,3,0,Externals,Aorjoa,2015-10-17 10:10:19,4,0,1,0,"For fixed issue #717 and I have an question.
 Why we provide flag `local`and `force` in source code but in [help page](https://github.com/github/git-lfs/blob/master/docs/man/git-lfs-init.1.ronn) not found how to use it?
-"
+",219,False,en
 727,1,11,0,Externals,mikkeloscar,2015-10-10 14:02:32,124,0,1,0,"This adds full zsh completion support for git-lfs. I have used the same file structure as the other PR for bash support. Let me know if I should change it in any way.
 
 This version depends on the [_git](https://github.com/zsh-users/zsh/blob/master/Completion/Unix/Command/_git) completion distributed with zsh, and it should be installed into something like: `/usr/share/zsh/site-functions/_git-lfs`.
-"
+",401,True,en
 680,8,5,0,Externals,Aorjoa,2015-09-25 05:33:39,57,3,2,0,"from #674 I just change to show OIDs and filenames.
-"
+",52,True,en
 674,0,2,0,Externals,Aorjoa,2015-09-19 07:12:27,0,0,0,0,"according #307 report `$git lfs ls-files` not list duplicate, i think this feature importance to me and then i have hack some code please review my code and suggest me :)
-"
+",171,True,en
 648,2,3,0,Externals,i59,2015-09-09 14:34:36,18,0,1,0,"Provided example for moving all use cases of a specific file format to the README, very useful if migrating existing repositories to LFS usage.
-"
+",144,True,en
 617,1,15,0,Externals,WillHipschman,2015-08-28 21:03:04,27,0,1,0,"Here's an initial proposal for NTLM auth in git lfs.
 
 I need to update it with specifics on the Client interface but I want to wait until #611 is merged to do that.
@@ -1060,9 +1060,9 @@ I need to update it with specifics on the Client interface but I want to wait un
 Let me know if you have thoughts or questions.
 
 Hacked together implementation of push here https://github.com/WillHipschman/git-lfs/tree/ntlm
-"
+",309,True,en
 592,1,0,0,Internals,technoweenie,2015-08-17 16:04:54,61,4,2,0,"This should prove that #588 is fixed in master.
-"
+",48,True,en
 590,1,1,0,Internals,technoweenie,2015-08-17 15:46:52,31,2,1,0,"So far, just a failing test from #588.
 
 ```
@@ -1088,13 +1088,13 @@ github.com/github/git-lfs/commands.func·002()
 created by github.com/github/git-lfs/commands.fetchCommand
     /Users/rick/go/src/github.com/github/git-lfs/commands/command_fetch.go:108 +0x6e6
 ```
-"
+",1392,True,en
 586,1,7,0,Externals,isserrano,2015-08-14 16:43:40,1,1,1,0,"Install script was failing in ubuntu when PATH+=:$prefix/bin
-"
+",61,True,en
 582,2,4,0,Externals,sinbad,2015-08-13 09:19:12,2,2,2,0,"Otherwise the branch push will go ahead and data will be incomplete on the server.
 
 Unfortunately even after this is fixed in the code, it won't fix problems in repos which were initialised beforehand. Need to edit .git/hooks/pre-push manually, even ""git lfs init --force"" won't fix it because the pre-push already exists.
-"
+",323,True,en
 576,1,4,3,Externals,billygor,2015-08-11 15:44:30,27,10,3,0,"this change improves drastically pre-push behaviour, by not sending
 lfs objects which are already on a remote. Works perfectly with
 pushing new branches and tags.
@@ -1122,25 +1122,25 @@ git push origin master:refs/for/master
 
 in this case ""refs/for/master"" does not exist and git feeds all 0-s as
 ""remote sha1"".
-"
+",1282,False,en
 568,4,6,9,Externals,WillHipschman,2015-08-06 20:25:39,690,0,28,0,"Currently using git lfs help checkout will not display anything other than the base help text of the Cobra command.
 
 This change parses the .ronn man files in /docs/ and writes them to go variables as part of script/bootstrap using go generators. When making a man change (adding a new command/man file or modifying a current one) the help text can be regenerated by running 'go generate' from the git-lfs root or by running the bootstrap script.
-"
+",447,True,en
 528,1,2,0,Internals,technoweenie,2015-07-27 17:43:53,0,0,0,0,"This adds some basic json schema tests:
 - The documented json schema values are all valid json schemas
 - The schemas are tested with examples of expected valid or invalid json documents.
 
 How do the tests look? Is it worth bringing in 5 tiny packages to validate json?
-"
+",269,False,en
 517,1,4,0,Externals,memikequinn,2015-07-23 19:31:32,1,1,1,0,"When using special-ish characters, `><-`, etc, in your password, the string would get garbled and base64 decoding breaks on the test server with the following err: `illegal base64 data at input byte...`  
-"
+",205,True,en
 500,2,1,0,Internals,technoweenie,2015-07-22 20:26:18,153,21,10,0,"This backports #461.
 
 Conflicting files:
 - commands/command_push.go
 - lfs/upload_queue.go
-"
+",90,True,en
 454,2,1,0,Internals,rubyist,2015-07-01 15:19:31,30,6,1,0,"This PR adds logs to the stats log for every connection that's made by the HTTP Dialer. With these stats we can learn how to keep these extra connections to a minimum by setting a more appropriate value for `MaxIdleConnsPerHost`.
 
 Some quick tests pushing 25 files to localhost, with the default settings (concurrent transfers = 3, no batch):
@@ -1164,7 +1164,7 @@ For the same files on a GitHub hosted repo we have:
 |  | storage | 3 |
 
 `ConcurrentTransfers() * 2` seems to be a good starting point. Going any higher than that doesn't have much of an effect.
-"
+",882,True,en
 418,1,0,0,Externals,gitter-badger,2015-06-18 19:57:42,2,0,1,0,"### github/git-lfs now has a Chat Room on Gitter
 
 @technoweenie has just created a chat room. You can visit it here: [https://gitter.im/github/git-lfs](https://gitter.im/github/git-lfs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&content=body_link).
@@ -1178,7 +1178,7 @@ If my aim is a little off, please [let me know](https://github.com/gitterHQ/read
 Happy chatting.
 
 PS: [Click here](https://gitter.im/settings/badger/opt-out) if you would prefer not to receive automatic pull-requests from Gitter in future.
-"
+",743,True,en
 416,1,4,0,Externals,bozaro,2015-06-18 18:44:03,2,3,1,0,"Suggestion for #414: I think, the good idea for batch API is removing {oid} from git-lfs-authenticate command:
 
 ```
@@ -1186,16 +1186,16 @@ ssh git@github.com git-lfs-authenticate user/repo.git download {oid}
 ```
 
 The presence of this argument needs to perform this command for each object is sent.
-"
+",275,True,en
 411,1,3,0,Internals,technoweenie,2015-06-18 13:36:33,32,4,5,0,"This brings the Windows-specific improvements from #381 to the lfs package. Specifically for the `git-credential` and `ssh` execs.
 
 /cc @bozaro @sinbad
-"
+",152,True,en
 407,7,1,0,Internals,technoweenie,2015-06-17 19:38:54,122,71,4,0,"DO NOT MERGE
 
 I started exploring a different approach to #362 based on the assumption that #403 will be merged. 
-"
-380,1,5,3,Externals,bozaro,2015-06-11 08:49:09,5,1,1,0,
+",114,True,en
+380,1,5,3,Externals,bozaro,2015-06-11 08:49:09,5,1,1,0,,0,False,en
 378,81,31,0,Externals,sinbad,2015-06-10 13:50:45,2389,490,22,0,"Implements a pure SSH path allowing you to perform LFS operations entirely over SSH instead of only using SSH for auth and uploading/downloading over HTTP. Useful for those who want to simply self-host using existing SSH key access without using a web server. SSH key authentication is required.
 
 Corresponding reference server implementation is at https://github.com/sinbad/git-lfs-ssh-serve (there's also a mock SSH client in test/cmd/lfstest-mockssh used for integration testing)
@@ -1213,11 +1213,11 @@ Future enhancements:
 - Manual authentication (only SSH key auth is supported right now)
 
 Previously submitted as https://github.com/github/git-lfs/pull/350
-"
+",1383,True,en
 362,4,8,1,Externals,ewbankkit,2015-06-01 19:14:18,0,0,0,0,"This PR adds support for URLs containing credentials per [RFC1738](https://www.ietf.org/rfc/rfc1738.txt) - `user:pass@host` - to be configured in the usual places.
 Such URLs will trigger a warning.
 Any credentials parsed from a configured URL will be saved via `git credential approve`.
-"
+",287,False,en
 360,1,4,0,Externals,larsxschneider,2015-06-01 16:52:08,39,18,1,0,"Hi,
 
 I am evaluating git lfs for large repositories (> 20GB) that contain a big number of small binary files. Our offices are distributed across the globe and the initial git clone operation is painfully slow.
@@ -1232,7 +1232,7 @@ The solution bypasses all security mechanisms. For now that's not a big problem 
 What do you think about this approach? Nuts? Do you see a better/easier solution?
 
 PS: Please don't judge me by the go code attached to this PR... it's the first piece of go that I've ever written :smile: 
-"
+",847,True,en
 350,58,5,9,Externals,sinbad,2015-05-29 18:35:55,1957,473,20,0,"This PR makes git-lfs compatible with a pure SSH server implementation, rather than only authenticating then doing everything else over HTTP. This is particularly useful for people self-hosting who don't want the overhead of setting up & maintaining a web server.
 
 Corresponding reference server implementation is at https://github.com/sinbad/git-lfs-ssh-serve
@@ -1240,7 +1240,7 @@ Corresponding reference server implementation is at https://github.com/sinbad/gi
 PR in its current state focusses on a **pure** SSH route (including upload/download), future extensions might include supporting a further hybrid setup where again no web server is required for any API calls (UploadCheck/DownloadCheck) but the Upload/Download can still be redirected to hypermedia links (most likely S3).
 
 PR also adds support for a few more SSH URL forms including custom ports. The existing git-lfs-authenticate route is not affected.
-"
+",816,True,en
 345,1,7,0,Internals,technoweenie,2015-05-28 20:50:43,0,3,1,0,"We've changed how go dependencies are managed in Git LFS (#331). Hopefully the various build scripts still work ;) Two main differences:
 - `script/bootstrap` no longer symlinks the root dir into `.vendor/src/github/git-lfs`.
 - The main entry point is now `./git-lfs.go`, not `cmd/git-lfs/git-lfs.go`.
@@ -1248,21 +1248,21 @@ PR also adds support for a few more SSH URL forms including custom ports. The ex
 @ssgelm: I removed the symlinking from the debian package rules. 
 
 @jsh: Since the `script/debian-build` and `script/centos-build` both use `script/bootstrap`, I think they're good to go.
-"
+",490,False,en
 330,6,1,0,Internals,technoweenie,2015-05-25 16:27:49,142,224,136,0,"Updates the project to use Godeps instead of gpm.  Main goal is to get this project building with standard go tools and without [symlinking](https://github.com/github/git-lfs/blob/8ce6043f3d3f3a680b013ffe12b7a9c88400a89e/script/bootstrap#L11). This reduces the friction for new coders to get up and going, especially Windows go developers.
-"
-324,2,4,0,Externals,michael-k,2015-05-21 23:11:08,4,1,1,0,
+",340,True,en
+324,2,4,0,Externals,michael-k,2015-05-21 23:11:08,4,1,1,0,,0,False,en
 304,1,1,0,Externals,michael-k,2015-05-14 09:38:08,1,0,1,0,"Fixes build of #303
-"
+",20,True,en
 302,1,0,3,Externals,celgemark,2015-05-13 07:50:01,5,1,2,0,"Make sure we exit with error code if the smudge or clean fails
-"
+",63,True,en
 294,5,7,0,Externals,Aorjoa,2015-05-10 08:24:06,36,3,2,0,"according #293 my report issue, now i already hack code for fixed.
 if anybody run `$ git lfs track` outside git repository it's show message ""Git LFS cannot perform outside git repository."" 
-"
+",191,False,en
 291,20,2,0,Internals,technoweenie,2015-05-08 18:44:15,788,0,10,0,"Our integration tests have a number of problems that make it difficult for new contributors to add commands.  The tests are a mix of explicit Go code, and a non-trivial test helper for setting up sample repositories.  They give me confidence to changes to [simple commands](https://github.com/github/git-lfs/blob/master/commands/pointer_test.go), but not for the important ones that communicate with external servers.
 
 https://github.com/github/git-lfs/pull/280#issuecomment-99766136 really highlights how this friction impacts changes to this young project.  
-"
+",561,True,en
 290,12,5,0,Internals,technoweenie,2015-05-08 17:08:19,317,49,11,0,"This builds on #280 by @zeroshirts, adding an fsck command.  Right now, all it does is makes sure the `.git/lfs/objects` files all match the OID (a sha256 hash of the contents).  By default, it removes any bad files so that Git LFS can re-download them the next time they're referenced.
 
 Questions:
@@ -1292,7 +1292,7 @@ err := lfs.Scan(cfg, func(path string, p *lfs.Pointer) error {
   ...
 })
 ```
-"
+",1488,True,en
 280,13,10,3,Externals,zeroshirts,2015-05-04 06:32:12,0,0,0,0,"This is a first-cut of the LFS fsck command to address issue #262.
 
 I wanted to put this out there for review before adding stuff like on-the-fly status completion updates (which would be useful given the possibility of LFS fsck hashing gigs of media content).  I'm curious whether this is a good approach to the fsck problem.
@@ -1305,17 +1305,17 @@ Example of the unit test errors I encountered:
 --- FAIL: TestUpdateWithOldPrePushHook_2 (0.04s)
     update_test.go:174: Error writing pre-push in Before(): open /private/var/folders/0t/n69_kx414lg481jhdyf8n6xh0000gn/T/git-lfs-tests/empty/.git/hooks/pre-push: no such file or directory
 ```
-"
+",841,True,en
 270,2,4,0,Externals,keithws,2015-04-28 18:39:08,1,0,1,0,"I found an open source implementation of the LFS server API that stores large files on Amazon S3. It seems worthy of a link.
-"
+",125,True,en
 261,3,1,0,Internals,technoweenie,2015-04-23 23:30:55,287,196,5,0,"This renames `git lfs push` to `git lfs pre-push`, but leaves an alias around.  I'd like to remove the `git lfs push` alias by v0.6.x so we can eventually work towards a `git lfs push` command designed for users.
-"
+",213,True,en
 255,2,3,0,Externals,Aorjoa,2015-04-22 04:56:32,7410,9,82,0,"Currently, this project use old format of godeps (dependency tool) and i would like to update to new format.
-"
+",109,True,en
 254,2,0,0,Externals,Aorjoa,2015-04-22 01:55:08,13932,9,202,0,"Currently, this project use old format of godep (dependency tool) and i would like to update to new format.
-"
+",108,True,en
 253,2,0,0,Externals,Aorjoa,2015-04-21 10:37:46,41,9,2,0,"Currently, godep in git-lfs project use old file format then I would like to change to new form.
-"
+",97,True,en
 248,1,2,0,Internals,technoweenie,2015-04-19 19:02:34,10,4,1,0,"This tweaks Git LFS's behavior regarding authentication.
 ## SSH auth
 1. Run SSH command
@@ -1330,34 +1330,34 @@ Example of the unit test errors I encountered:
 - [ ] implement above changes in the code
 
 Closes #243 (/cc @ddanier)
-"
+",866,False,en
 222,1,1,3,Externals,PeterDaveHello,2015-04-10 23:42:30,1,1,1,0,"cc c7b71c1ad17efa6fef70457857d0b91110db1356
-"
+",44,True,en
 220,2,4,0,Externals,PeterDaveHello,2015-04-10 22:14:55,63,0,1,0,"Refer to hub's completion (https://github.com/github/hub/blob/master/etc/hub.bash_completion.sh)
-"
+",97,True,en
 219,14,4,7,Externals,thekafkaf,2015-04-10 21:50:15,13,2,1,0,"Very simple code, no need for much documentation, documented mostly the functions(godoc is awesome).
-"
+",101,True,en
 207,9,1,0,Externals,PeterDaveHello,2015-04-09 23:37:55,36,7682,100,0,"Does Godeps works with git submodule?
 If so, we can make the repo simpler!
-"
+",75,False,en
 201,1,4,0,Externals,RyanMcG,2015-04-09 17:17:29,2,2,1,0,"`lfs.endpoint` and `remote.NAME.lfs` are not used, `lfs.url` and `remote.NAME.lfs_url` are.
 
 See [the spec](https://github.com/github/git-lfs/blob/master/docs/spec.md#the-server).
-"
-182,7,1,0,Internals,technoweenie,2015-03-30 23:38:07,16,8,6,0,
+",180,True,en
+182,7,1,0,Internals,technoweenie,2015-03-30 23:38:07,16,8,6,0,,0,False,en
 177,2,2,0,Internals,technoweenie,2015-03-05 22:02:56,329,228,12,0,"This renames the path/add/rm commands:
 - `git hawser path` => `git hawser track`
 - `git hawser add ""*.gif""` => `git hawser track ""*.gif""`
 - `git hawser rm ""*.gif""` => `git hawser untrack ""*.gif""`
 
 The old commands have aliases that will be removed in v0.5.0.
-"
+",259,False,en
 170,1,1,0,Internals,technoweenie,2015-02-20 18:29:35,114,0,1,0,"Just a proof of concept of a plumbing tool that could eventually turn into a command to download arbitrary pointer files.
-"
+",122,True,en
 164,3,1,0,Internals,technoweenie,2015-02-17 16:55:54,61,42,3,0,"This teaches `*hawser.WrappedError` objects about whether they're panic-worthy or not.  Panic-worthy errors are written to the logs and dumped to stderr with the full stack trace.  Regular errors should just dump an error message.
 
 Sidebar: It's worth considering a better name for ""panic"", since that's a common Go term.  
-"
+",324,True,en
 159,3,1,0,Internals,technoweenie,2015-02-08 02:11:10,228,0,3,0,"Experimenting with high level cli tests. 
 
 ```
@@ -1375,9 +1375,9 @@ $ script/test tests
 FAIL
 FAIL    _/Users/rick/github/git-hawser/tests    0.035s
 ```
-"
+",494,True,en
 157,1,1,0,Externals,nuclearsandwich,2015-02-03 23:22:31,1,0,1,0,"/cc @technoweenie
-"
+",18,True,pl
 143,3,16,3,Internals,technoweenie,2015-01-09 16:12:08,26,2,1,0,"This is an updated proposal for supporting encryption and compression in the Git Media client.  This is to support the use case of keeping object privacy from external object stores that aren't completely trusted.
 
 It is not meant to be some kind of access control inside the Git repository.  If a user can clone a repository, it should also be able to download and decrypt files.  The key (the file's original OID) is only tracked in the pointer file.
@@ -1385,27 +1385,27 @@ It is not meant to be some kind of access control inside the Git repository.  If
 There is the big caveat that recovering from key or algorithm compromises will require an entire Git history rewrite.  But this system is much simpler than building key management into the Git Media API.
 
 /cc @github/git-media 
-"
-142,1,1,0,Internals,leereilly,2014-12-31 03:03:24,1,1,1,0,
+",682,True,en
+142,1,1,0,Internals,leereilly,2014-12-31 03:03:24,1,1,1,0,,0,False,en
 141,1,1,0,Internals,technoweenie,2014-12-29 22:00:47,15,5,1,0,"This clarifies the order that clients check for the url, and adds a new setting.  Breaking changes for existing clients:
 - `media.endpoint` is now `media.url`.
 - A remote's media url is now `remote.{name}.media_url`, not `remote.{name}.media`.  This allows us to support extra media properties, like `remote.{name}.media_transport`.
-"
+",333,False,en
 138,4,1,7,Internals,technoweenie,2014-10-24 17:43:28,42,6,2,0,"Proposed updates:
 1. Support redirects in the Git Media HTTPS transport.
 2. Add optional `compression` and `encryption` keys.
 3. Allow specifying the transport used.  `remote.{name}.media` changes to `remote.{name}.media_url` to support a key like `remote.{name}.media_transport`.
 
 I'm also interested in ideas about a better way to organize the spec.  This is very much a stream of consciousness.
-"
+",398,False,en
 92,15,5,0,Internals,technoweenie,2014-07-24 22:21:22,757,74,18,0,"Ported from #88.
 
 /cc @joshaber
-"
+",32,True,en
 88,5,7,0,Internals,joshaber,2014-07-22 20:51:25,4694,295,61,0,"This is a start towards addressing #86.
 
 Thoughts? If you all are :+1: I wouldn't mind learning a little `go` to put this together myself.
-"
+",139,True,en
 60,4,1,0,Internals,technoweenie,2014-06-03 20:39:49,48,3,3,0,"```
 $ git push           
 Sending /Users/rick/p/freezing-dubstep/.git/media/03/2b/032b5ce7311daaa4a4331e5cc791579f6e1d11fc649be6176c4284d61b94b4db
@@ -1419,4 +1419,4 @@ To file:///Users/rick/github/github/repositories/development/8/nw/8f/14/e4/7/400
 ```
 
 ZOMG.  This makes git-media invisible (for all the happy cases).  
-"
+",568,False,en

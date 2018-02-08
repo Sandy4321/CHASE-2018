@@ -113,23 +113,46 @@ class Repository():
                                 else:
                                     writer.writerow({'pull_request': pull_request['number'], 'number_of_commits': len(number_of_commits), 'number_of_comments': len(number_of_comments), 'number_of_reviews': len(number_of_reviews), 'user_type': 'Externals', 'user_login': pull_request['user']['login'], 'closed_at': closed_at, 'number_of_additions': number_of_additions, 'number_of_deletions': number_of_deletions, 'number_of_files_changed': number_of_files_changed, 'number_of_days': number_of_days, 'message': message})
                             except Exception as ex:
-                                with open('errors.log', 'a') as errors:
+                                with open('error.log', 'a') as errors:
                                     errors.write(ex)
                                     errors.write('\n Repository:' + self.folder + '\n')
 
-    def messages_language(self):
+    def pull_requests_files(self):
+        pulls_file = self.folder + '/pull_requests.json'
+        pulls_files_file = self.folder + '/pull_requests_files.json'
+        dictionary = {}
+
+        if os.path.isfile(pulls_file):
+            with open(pulls_file, 'r') as pulls:
+                data = json.load(pulls)
+
+                for pull_request in data:
+                    try:
+                        if pull_request['state'] == 'closed':
+                            files = self.collector.files_in_pull_request(pull_request['number'])
+                            dictionary[pull_request['number']] = files
+                    except Exception as ex:
+                        with open('error.log', 'a') as errors:
+                            errors.write(ex)
+                            errors.write('\n Repository:' + self.folder + '\n')
+         
+        with open(pulls_files_file, 'w') as outfile:
+            json.dump(dictionary, outfile)
+
+    def update_summaries(self):
         pulls_summary_file = self.folder + '/merged_pull_requests_summary.csv'
-        messages_language_file = self.folder + '/merged_messages.csv'
-        fieldnames = ['pull_request', 'message', 'user_type', 'number_of_characters', 'second_line_is_blank', 'language', 'number_of_additions', 'number_of_deletions', 'number_of_files_changed']
-        writer = csv.DictWriter(open(messages_language_file, 'w'), fieldnames=fieldnames)
+        pulls_summary_file_updated = self.folder + '/merged_pull_requests_summary_updated.csv'
 
         if os.path.isfile(pulls_summary_file):
             with open(pulls_summary_file, 'r') as summary:
                 reader = csv.DictReader(summary)
+                fieldnames = reader.fieldnames + ['number_of_characters', 'second_line_is_blank', 'language']
+                writer = csv.DictWriter(open(pulls_summary_file_updated, 'w'), fieldnames=fieldnames)
+                writer.writeheader()
 
                 for pull_request in reader:
                     message = pull_request['message']
-                    number_of_characters = sum(c.isdigit() for c in message)
+                    number_of_characters = len(message)
                     second_line_is_blank = False
 
                     lines = message.split('\n')
@@ -139,17 +162,12 @@ class Repository():
                             second_line_is_blank = True
 
                     language = langid.classify(message)[0]
-                    writer.writerow({'pull_request': pull_request['pull_request'], 'user_type': pull_request['user_type'], 'number_of_characters': number_of_characters, 'second_line_is_blank': second_line_is_blank, 'language': language, 'number_of_additions': pull_request['number_of_additions'], 'number_of_deletions': pull_request['number_of_deletions'], 'number_of_files_changed': pull_request['number_of_files_changed']})
 
+                    pull_request['number_of_characters'] = number_of_characters
+                    pull_request['second_line_is_blank'] = second_line_is_blank
+                    pull_request['language'] = language
 
-
-
-
-
-
-
-
-
+                    writer.writerow(pull_request)
 
 def repositories_in_parallel(project):
     collector = GitRepository.Repository(project['organization'], project['name'], crawler)
@@ -157,10 +175,11 @@ def repositories_in_parallel(project):
 
     R = Repository(collector, folder)
     # R.about()
-    # R.pull_requests()
     # R.contributors()
+    # R.pull_requests()
+    R.pull_requests_files()
     # R.closed_pull_requests_summary()
-    R.messages_language()
+    # R.update_summaries()
 
 if __name__ == '__main__':
     dataset_folder = 'Dataset/'
