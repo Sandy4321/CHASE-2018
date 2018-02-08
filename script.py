@@ -5,6 +5,7 @@ try:
     import multiprocessing
     from datetime import datetime
     from functools import partial
+    import re
     import json
     import csv
     import os
@@ -76,7 +77,7 @@ class Repository():
                 data = json.load(pulls)
 
                 with open(pulls_summary_file, 'a') as output:
-                    fieldnames = ['pull_request', 'number_of_commits', 'number_of_comments','number_of_reviews','user_type', 'user_login', 'closed_at', 'number_of_additions', 'number_of_deletions','number_of_files_changed','number_of_days', 'message']
+                    fieldnames = ['pull_request', 'number_of_commits', 'number_of_comments','number_of_reviews','user_type', 'user_login', 'closed_at', 'number_of_additions', 'number_of_deletions','number_of_files_changed','number_of_days', 'message', 'number_of_characters', 'second_line_is_blank', 'language']
                     writer = csv.DictWriter(output, fieldnames=fieldnames)
                     writer.writeheader()
 
@@ -104,14 +105,24 @@ class Repository():
                                         if pull_request_data['body'] != None:
                                             message = pull_request_data['body'].encode('utf-8')
 
+                                    number_of_characters = len(message)
+                                    second_line_is_blank = False
+                                    lines = message.split('\n')
+
+                                    if len(lines) > 1:
+                                        if not lines[1].strip():
+                                            second_line_is_blank = True
+
+                                    language = langid.classify(message)[0]
+
                                 created_at = datetime.strptime(pull_request['created_at'], '%Y-%m-%dT%H:%M:%SZ')
                                 closed_at = datetime.strptime(pull_request['created_at'], '%Y-%m-%dT%H:%M:%SZ')
                                 number_of_days = (closed_at - created_at).days
 
                                 if pull_request['user']['site_admin'] == True:
-                                    writer.writerow({'pull_request': pull_request['number'], 'number_of_commits': len(number_of_commits), 'number_of_comments': len(number_of_comments), 'number_of_reviews': len(number_of_reviews), 'user_type': 'Internals', 'user_login': pull_request['user']['login'], 'closed_at': closed_at, 'number_of_additions': number_of_additions, 'number_of_deletions': number_of_deletions, 'number_of_files_changed': number_of_files_changed, 'number_of_days': number_of_days, 'message': message})
+                                    writer.writerow({'number_of_characters': number_of_characters, 'second_line_is_blank': second_line_is_blank, 'language': language, 'pull_request': pull_request['number'], 'number_of_commits': len(number_of_commits), 'number_of_comments': len(number_of_comments), 'number_of_reviews': len(number_of_reviews), 'user_type': 'Internals', 'user_login': pull_request['user']['login'], 'closed_at': closed_at, 'number_of_additions': number_of_additions, 'number_of_deletions': number_of_deletions, 'number_of_files_changed': number_of_files_changed, 'number_of_days': number_of_days, 'message': message})
                                 else:
-                                    writer.writerow({'pull_request': pull_request['number'], 'number_of_commits': len(number_of_commits), 'number_of_comments': len(number_of_comments), 'number_of_reviews': len(number_of_reviews), 'user_type': 'Externals', 'user_login': pull_request['user']['login'], 'closed_at': closed_at, 'number_of_additions': number_of_additions, 'number_of_deletions': number_of_deletions, 'number_of_files_changed': number_of_files_changed, 'number_of_days': number_of_days, 'message': message})
+                                    writer.writerow({'number_of_characters': number_of_characters, 'second_line_is_blank': second_line_is_blank, 'language': language, 'pull_request': pull_request['number'], 'number_of_commits': len(number_of_commits), 'number_of_comments': len(number_of_comments), 'number_of_reviews': len(number_of_reviews), 'user_type': 'Externals', 'user_login': pull_request['user']['login'], 'closed_at': closed_at, 'number_of_additions': number_of_additions, 'number_of_deletions': number_of_deletions, 'number_of_files_changed': number_of_files_changed, 'number_of_days': number_of_days, 'message': message})
                             except Exception as ex:
                                 with open('error.log', 'a') as errors:
                                     errors.write(ex)
@@ -139,35 +150,35 @@ class Repository():
         with open(pulls_files_file, 'w') as outfile:
             json.dump(dictionary, outfile)
 
-    def update_summaries(self):
-        pulls_summary_file = self.folder + '/merged_pull_requests_summary.csv'
-        pulls_summary_file_updated = self.folder + '/merged_pull_requests_summary_updated.csv'
+    def pull_requests_files_analysis(self):
+        pulls_summary_file = self.folder + '/merged_pull_requests_summary.csv' # Change it to merge if you want ;-)
+        pulls_summary_file_updated = self.folder + '/merged_pull_requests_summary_updated.csv' # Change it to merge if you want ;-)
+        pulls_files_file = self.folder + '/pull_requests_files.json'
+        regex = re.compile(r'.*test.*\.[^.]+$')
 
-        if os.path.isfile(pulls_summary_file):
-            with open(pulls_summary_file, 'r') as summary:
-                reader = csv.DictReader(summary)
-                fieldnames = reader.fieldnames + ['number_of_characters', 'second_line_is_blank', 'language']
-                writer = csv.DictWriter(open(pulls_summary_file_updated, 'w'), fieldnames=fieldnames)
-                writer.writeheader()
+        if os.path.isfile(pulls_summary_file) and os.path.isfile(pulls_files_file):
+            input_file = open(pulls_summary_file, 'r')
+            reader = csv.DictReader(input_file)
+            output_file = open(pulls_summary_file_updated, 'w')
+            writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames + ['number_of_test_files'])
+            writer.writeheader()
+            json_file = json.load(open(pulls_files_file, 'r'))
 
-                for pull_request in reader:
-                    message = pull_request['message']
-                    number_of_characters = len(message)
-                    second_line_is_blank = False
+            for pull_request in reader:
+                number_of_test_files = 0
 
-                    lines = message.split('\n')
+                for pull_request_number in json_file:
+                    if int(pull_request['pull_request']) == int(pull_request_number):
+                        print 'inside'
+                        files = json_file[pull_request_number]
+                        
+                        for file in files:
+                            filename = file['filename'].split('/')[-1]
+                            if regex.search(filename):
+                                number_of_test_files = number_of_test_files + 1
 
-                    if len(lines) > 1:
-                        if not lines[1].strip():
-                            second_line_is_blank = True
-
-                    language = langid.classify(message)[0]
-
-                    pull_request['number_of_characters'] = number_of_characters
-                    pull_request['second_line_is_blank'] = second_line_is_blank
-                    pull_request['language'] = language
-
-                    writer.writerow(pull_request)
+                pull_request['number_of_test_files'] = number_of_test_files
+                writer.writerow(pull_request)
 
 def repositories_in_parallel(project):
     collector = GitRepository.Repository(project['organization'], project['name'], crawler)
@@ -177,9 +188,10 @@ def repositories_in_parallel(project):
     # R.about()
     # R.contributors()
     # R.pull_requests()
-    R.pull_requests_files()
+    # R.pull_requests_files()
     # R.closed_pull_requests_summary()
     # R.update_summaries()
+    R.pull_requests_files_analysis()
 
 if __name__ == '__main__':
     dataset_folder = 'Dataset/'
