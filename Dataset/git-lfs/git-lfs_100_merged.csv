@@ -1,0 +1,32 @@
+"","pull_request","number_of_commits","number_of_comments","number_of_reviews","user_type","user_login","merged_at","number_of_additions","number_of_deletions","number_of_files_changed","number_of_days","message","number_of_characters","second_line_is_blank","language","number_of_test_files"
+"340",2049,1,0,0,"Externals","TheJare","2017-09-07T19:13:21Z",1,1,1,172,"I am not clear on the goal of fsck, but when I ran it on my repo it complained about missing objects that were old revisions of lfs-stored files. It then tried to move the offending objects' files to the ""bad"" folder and, since the files of course did not exist, it complained again.
+
+I found this looked like a reasonable fix, and then saw #953 which seems to agree.",367,"True","en",0
+"347",2023,2,16,3,"Externals","bozaro","2017-07-12T15:44:34Z",92,20,9,124,"**Motivation**: use single shared directory for multiple working copies on build farm. Sharing LFS storage directory allow reduce disk space usage and downloading time.",168,"False","en",2
+"709",1177,8,19,0,"Externals","javabrett","2016-08-17T21:48:47Z",184,26,8,114,"These changes modify the packaged install experience, pulling-up config changes currently made in the current user ""global"" config (`~/.gitconfig`), to instead be made at the ""system"" config (`/etc/gitconfig`).  That way, Git LFS is installed once per-system, and does not require additional configuration should a different user start using Git LFS and therefore require the smudge/clean filters.
+
+Note that these changes presume that it is safe to have the Git LFS filters installed and that they do and will continue to run as fast noops in non-Git LFS repos.
+
+The elevation from global-to-system occurs automatically provided:
+1. The installation runs as root
+2. `--local` is not specified.
+
+Additionally, post-install and pre-remove scripts are added to deb and rpm packages.  Since these run as root, they automatically elevate and install to `/etc/gitconfig`.
+
+I don't know how this plays-out on Windows.
+",912,"True","en",0
+"836",715,10,5,1,"Internals","rubyist","2016-03-03T18:03:49Z",1317,25,15,148,"This PR adds support for using netrc for LFS API requests. The priority becomes:
+1. Check the LFS URL for authentication. Ex: http://user:pass@example.com
+2. Check netrc for authentication.
+3. Check the Git remote URL for authentication IF it's the same scheme and host of the LFS URL.
+4. Ask 'git credential' to fill in the password from one of the above URLs.
+
+TODO:
+- [x] Add netrc support
+- [x] Add automated tests
+- [x] What happens on Windows? Does netrc work there?
+
+//cc #705 
+",485,"False","en",3
+"860",666,1,15,0,"Externals","sinbad","2016-05-16T20:11:31Z",110,0,1,245,"I've given locking some thought before so I've pulled out my notes about how I think it could work for a git-lfs proposal.
+",123,"True","en",0

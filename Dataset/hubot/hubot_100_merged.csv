@@ -1,0 +1,118 @@
+"","pull_request","number_of_commits","number_of_comments","number_of_reviews","user_type","user_login","merged_at","number_of_additions","number_of_deletions","number_of_files_changed","number_of_days","message","number_of_characters","second_line_is_blank","language","number_of_test_files"
+"38",1289,2,0,0,"Externals","makii42","2017-05-24T03:22:45Z",1,2,3,116,"... and removes @robot.server.close() from afterEach hooks.
+
+While testing my hubot scripts' express routes, I noticed that a robot created in a before-hook with enabled http does not shut down the http server on `robot.shutdown()`. 
+
+I know that there are discussions to pull out the express server as a module/script, but in the meantime, this would fix the _issue_, if you want to call it one.
+
+I also removed the explicit `@robot.server.close()` calls in 2 test files, as calling `close()` multiple times on an http server seems to throw an error in node v0.10.",571,"True","en",2
+"39",1286,1,2,0,"Externals","mose","2017-05-11T03:32:41Z",4,4,1,111,".. and removing the link to webchat will avoid misleading visitors. In the past 6 months, people just jump in, expect to be able to test a bot, and don't stay. But there is no bot on that irc channel, as it's more a social place for developers ...
+
+I hope this change in the README could improve the quality of our irc channel :)",331,"True","en",0
+"40",1272,1,1,0,"Externals","Hbrinj","2017-04-30T23:45:54Z",1,1,1,147,"Signed-off-by: Houman Brinjcargorabi <hbrinjcar@gmail.com>",58,"False","sl",0
+"41",1255,3,0,2,"Externals","ksatirli","2017-04-30T23:48:14Z",1,1,1,184,"Hi!
+
+One of the code examples is missing a `->` and thus will not pass linting checks (or actually work).
+",106,"True","en",0
+"42",1240,1,1,0,"Externals","notpeter","2017-04-30T23:50:14Z",6,2,1,219,"",0,"False","en",0
+"43",1214,1,0,0,"Externals","tas50","2017-05-01T00:21:24Z",3,2,1,289,"Opscode -> Chef
+Add runit as a reliable init system
+",52,"False","en",0
+"44",1209,1,1,0,"Externals","denisvm","2017-05-23T22:52:23Z",2,1,1,327,"Change the default file mode from `0o666` (u=rw,g=rw,o=rw) to `0o600` (u=rw,go=), which will deny access to everyone else other than the owner of the file.
+This is used only when creating the file, so the user can change it afterwards if really want to make it public.
+",269,"False","en",0
+"48",1161,4,6,2,"Externals","twellspring","2017-05-01T00:06:01Z",26,0,1,397,"Adding documentation for robot.messageRoom per #1085 
+
+Note:  I was only able to test this using the hubot-slack integration
+",125,"True","en",0
+"49",1151,2,0,5,"Externals","pchaigno","2017-05-01T00:32:08Z",11,0,1,406,"As discussed in #1143, this pull request documents `hubot.brain`, and, in particular, the content of `hubot.brain.users`.
+
+I'll be happy to update it based on comments; especially if the wording can be made clearer :smiley:
+",224,"True","en",0
+"50",1150,1,1,0,"Externals","gasolin","2017-05-01T00:30:29Z",1,8,1,406,"The test for 'topic' is replicated
+",35,"True","en",1
+"66",1106,3,3,4,"Externals","gotchahn","2017-05-24T03:17:54Z",10,6,2,504,"For avoiding `413 Request Entity too large` in some responses.
+fixes #1105 
+",76,"False","en",0
+"80",1052,1,4,0,"Internals","technicalpickles","2016-01-20T03:46:37Z",4,1,1,126,"This lets you set a HUBOT_SHELL_USER_ID=U0123456, as if to pretend to
+have a Slack user id.
+
+Without this change, `parseInt` ends up returning undefined for strings like `U0123456`.
+",182,"False","en",0
+"112",978,19,16,2,"Externals","jasonkarns","2017-05-23T23:06:42Z",31,56,8,712,"This isn't really a merge-ready PR but mostly to illustrate what straight npm-scripts can do with much less configuration. I also find it more discoverable than a directory of shell scripts or make targets because an npm project _always_ has a package.json, and therefore npm-scripts are there by default. 
+- scripts/bootstrap still remains, though it is largely unnecessary (all it does now is source .env files, which probably ought to be it's own npm utility and thus easily done directly in npm-scripts)
+- bootstrap is run automatically before `test` and `start` scripts (via `pretest` and `prestart`)
+- `start` is the old script/server
+- `test` is the mocha test suite (script/test and make test)
+- `clean` removes the lib directory (coffee-compiled JS); was the old make remove-js target
+- `test:smoke` runs the smoke-test (was script/smoke-test)
+- `release` is the old script/release. It's broken into three steps: prerelease (which does the npm-update and smoke-test); then 'release' via npm-version (bump/tag/commit); and finally postrelease (npm-publish and git-push). If any step fails, the subsequent steps are aborted.
+- `compile` is the old generate-js make target
+- `compile:watch` is the old make dev target (could easily be renamed but I think this is clearer)
+- `package` is the old make package target
+
+Other notes:
+- npm-scripts provide tab completion (`npm run com<TAB>` -> `npm run compile`)
+- `npm run` prints a list of all configured scripts for easy usage/help, showing what's available
+- npm-scripts automatically prepend `node_modules/.bin` to `$PATH` so PATH manipulation is unnecessary
+- npm-scripts support package.json introspection via environment variables that map directly to the package.json structure (e.g. `$npm_package_version`)
+- npm-scripts support user/custom configuration with global and local `.npmrc` files that are quite useful. (i.e. configuring test reporters, for instance. so for example, mocha default reporter could be `spec`, but overridden on CI to `tap` while Rando Dev could configure theirs to be `dot`)
+",2062,"False","en",0
+"117",970,6,9,1,"Internals","bkeepers","2016-05-06T22:59:01Z",34,1,1,333,"Instead of going through and manually adding deprecations for individual scripts (/cc https://github.com/github/hubot-scripts/issues/1641), what if core prints a warning whenever it loads the deprecated scripts?
+
+This will print the following warning after successfully loading scripts from `hubot-scripts.json:
+
+```
+Loading scripts from hubot-scripts.json is deprecated and will be removed in 3.0
+(https://github.com/github/hubot-scripts/issues/1113). See https://hubot.github.com/docs/#scripts
+to find a replacement for these scripts: [ 'alot' ]
+```
+",552,"True","en",0
+"189",803,54,61,51,"Externals","michaelansel","2015-07-30T22:11:33Z",1103,93,10,278,"Builds on #801 (57b722022807b9a5befaafcab2442ad3a03d455b) to allow injecting arbitrary code between the Listener match and execute steps. Like in Express, middleware can interrupt the response process, preventing the Listener callback from ever being executed. Middleware can perform operations both on the way towards the Listener callback (before callback execution) and on the way away from the Listener callback (after callback execution/middleware interrupt).
+
+As a side effect, listeners are now executed asynchronously. Behavior around message.done should remain the same (process until message.done is true).
+
+Example usage (imposes authorization policy on all scripts): https://github.com/michaelansel/hubot-rbac/blob/master/src/rbac.coffee
+
+API Change:
+- `Robot.receive` and `Listener.call` are now asynchronous. Any external code depending on knowing when all Listeners have been tested (in `receive`) or when the Listener callback has finished executing (in `call`) will need to be updated to use the new callback parameter. Code that doesn't care about timing should continue to work without modification.
+",1119,"True","en",3
+"191",801,9,13,11,"Externals","michaelansel","2015-06-05T19:27:14Z",77,10,3,225,"As the first part of enabling #768, we need a way to label each Listener with a scoped name. By itself, this first PR is fairly useless (no way to access the ID), but I want to work on this in bite-sized chunks.
+
+I've updated the documentation to show that you can (and should) specify an ID for all Listeners. Once this gets merged and the RBAC module is created, I'll do a pass over hubot-scripts and file a bunch of PRs for adding Listener IDs and default Permissions.
+",472,"True","en",0
+"199",788,1,1,1,"Externals","kevinsimper","2015-02-13T23:00:24Z",2,0,1,125,"Pull request as a solution to #785
+",35,"True","en",0
+"228",678,5,6,3,"Externals","ajkerr","2017-05-20T16:11:23Z",32,0,1,1144,"Added documentation based on results of discussion in #673.
+",60,"True","en",0
+"234",660,2,3,1,"Externals","ymendel","2014-10-16T21:01:06Z",1,1,1,230,"Turns out sometimes the username is a number, maybe. At least it's something that doesn't have a `toLowerCase()` method.
+",121,"True","en",0
+"330",429,86,33,25,"Internals","technicalpickles","2013-07-19T15:57:26Z",920,250,12,131,"We're looking to create some up to date documentation and put it into `docs/` inside the repository. The use of the repo wiki will be deprecated as 'too many cooks spoilt the broth' by editing it a lot with their own ways of doing things.
+
+I want to base the docs off the stuff I started writing for my hubot book (https://github.com/tombell/lhthw I may finish writing it this year, maybe).
+
+I also want to update the README to reflect what `hubot` as a package is, and mainly direct people who wish to hack on the core library rather than 'set up' hubot (directions to the docs will be given).
+
+Some initial points:
+
+Heroku will be officially supported way of deploying hubot, because there are many different ways to 'deploy' hubot to UNIX(-like) operating systems. We can document how to get to a point where you can run `bin/hubot <opts>` on UNIX, but documenting all the ways to handle this like upstart/init scripts etc is outside the scope of the docs for hubot.
+
+Some tasks to get going:
+- [x] start initial docs/ directory, copying wiki page
+- [x] document creating new hubot
+- [x] link to known third party adapters in `docs/adapters.md`
+- [x] flesh out CONTRIBUTING.md
+- [x] document deploying to heroku
+- [x] document deploy to unix (very basic, assume user has installed node, npm, etc, and only cover getting hubot running
+- [x] document common things you'd want to do in a script (hear vs respond, random, http, router)
+- [x] update src/template/README.md with any info that was in original README.md that would be useful
+- [x] update specific wiki to point at new docs after this been merged
+",1608,"True","en",0
+"354",344,8,22,4,"Externals","OleMchls","2013-02-16T17:15:47Z",73,4,3,172,"Events might get triggered by scripts.
+
+For example: You have a script, which can trigger and event that some one committed to a repo. This script can be used by anyone, but the reaction should be different by every company. So it's possible to trigger a build, or just post a message in chat.
+
+As a plus with the same event triggered by different scripts, so it wouldn't make a difference if you commit into github or just another (maybe SVN) repo. But other scripts can rely on that 'commit-received' command and act the same way.
+",533,"True","en",0
+"358",334,2,1,0,"Internals","keithduncan","2013-01-10T22:41:15Z",6,7,2,146,"Change constructed file paths to be __dirname relative, so that bin/hubot can be run from anywhere without first having to change directory to the working copy
+",160,"True","en",0
