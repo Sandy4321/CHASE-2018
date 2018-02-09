@@ -128,6 +128,27 @@ class Repository():
                                     errors.write(ex)
                                     errors.write('\n Repository:' + self.folder + '\n')
 
+    def update_second_line_is_blank(self):
+        pulls_summary_file = self.folder + '/merged_pull_requests_summary.csv'
+        pulls_summary_file_updated = self.folder + '/merged_pull_requests_summary_updated.csv'
+
+        input_file = csv.DictReader(open(pulls_summary_file, 'r'))
+        output_file = csv.DictWriter(open(pulls_summary_file_updated, 'w'), fieldnames=input_file.fieldnames)
+        output_file.writeheader()
+
+        for pull_request in input_file:
+            message = pull_request['message']
+            second_line_is_blank = False
+            lines = message.split('\n')
+
+            if len(lines) > 1:
+                if len(lines[1].strip()) == 0:
+                    second_line_is_blank = True
+
+            pull_request['second_line_is_blank'] = second_line_is_blank
+
+            output_file.writerow(pull_request)
+
     def pull_requests_files(self):
         pulls_file = self.folder + '/pull_requests.json'
         pulls_files_file = self.folder + '/pull_requests_files.json'
@@ -159,26 +180,43 @@ class Repository():
         if os.path.isfile(pulls_summary_file) and os.path.isfile(pulls_files_file):
             input_file = open(pulls_summary_file, 'r')
             reader = csv.DictReader(input_file)
-            output_file = open(pulls_summary_file_updated, 'w')
-            writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames + ['number_of_test_files'])
+            #output_file = open(pulls_summary_file_updated, 'w')
+            #writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames + ['number_of_test_files'])
+            #writer.writeheader()
+            output_file = open(self.folder + '/unit_test_files.csv', 'w')
+            writer = csv.DictWriter(output_file, fieldnames=['pull_request', 'unit_test_files'])
             writer.writeheader()
             json_file = json.load(open(pulls_files_file, 'r'))
 
             for pull_request in reader:
+                unit_test_files = []
                 number_of_test_files = 0
 
                 for pull_request_number in json_file:
                     if int(pull_request['pull_request']) == int(pull_request_number):
-                        print 'inside'
                         files = json_file[pull_request_number]
                         
                         for file in files:
                             filename = file['filename'].split('/')[-1]
                             if regex.search(filename):
+                                unit_test_files.append(filename)
                                 number_of_test_files = number_of_test_files + 1
+                        
+                        if len(unit_test_files) > 0:
+                            if 'atom' in self.folder:
+                                writer.writerow({'pull_request': 'https://github.com/atom/atom/pull/' + str(pull_request_number) + '/files', 'unit_test_files': ','.join(unit_test_files)})
+                            if 'electron' in self.folder:
+                                writer.writerow({'pull_request': 'https://github.com/electron/electron/pull/' + str(pull_request_number) + '/files', 'unit_test_files': ','.join(unit_test_files)})
+                            if 'hubot' in self.folder:
+                                writer.writerow({'pull_request': 'https://github.com/hubotio/hubot/pull/' + str(pull_request_number) + '/files', 'unit_test_files': ','.join(unit_test_files)})
+                            if 'git-lfs' in self.folder:
+                                writer.writerow({'pull_request': 'https://github.com/github/git-lfs/pull/' + str(pull_request_number) + '/files', 'unit_test_files': ','.join(unit_test_files)})
+                            if 'linguist' in self.folder:
+                                writer.writerow({'pull_request': 'https://github.com/github/linguist/pull/' + str(pull_request_number) + '/files', 'unit_test_files': ','.join(unit_test_files)})
+
 
                 pull_request['number_of_test_files'] = number_of_test_files
-                writer.writerow(pull_request)
+                #writer.writerow(pull_request)
 
 def repositories_in_parallel(project):
     collector = GitRepository.Repository(project['organization'], project['name'], crawler)
@@ -189,9 +227,10 @@ def repositories_in_parallel(project):
     # R.contributors()
     # R.pull_requests()
     # R.pull_requests_files()
+    R.pull_requests_files_analysis()
     # R.closed_pull_requests_summary()
     # R.update_summaries()
-    R.pull_requests_files_analysis()
+    # R.update_second_line_is_blank()
 
 if __name__ == '__main__':
     dataset_folder = 'Dataset/'
