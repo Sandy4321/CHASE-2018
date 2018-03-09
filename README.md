@@ -9,16 +9,16 @@ Tips for dataset replication:
 * Between line 226 and 233 you can decide which of the dataset files you want to extract using the script. For example, if you want just the contributors of the projects use only R.contributors() and comment on the remaining lines. But pay attention, some files just can be extracted when others were collected, so be careful.
 
 ### Dataset Structure:
-- Dataset: <br>
--- Project: <br>
---> about.json (General information about the project) <br>
---> contributors.json (All the contributors of the project) <br>
---> externals.csv (All the externals contributors of the project) <br>
---> pull_requests.json (All the pull requests of the project) <br>
---> pull_requests_files.json (Files used in each merged/closed pull request) <br>
---> unit_test_files.csv (Pull requests files that are probably related to unit tests) <br>
---> merged_pull_requests_summary.csv (General information about each merged pull request) <br>
---> merged_pull_requests_summary.csv (General information about each closed pull request) <br>
+⋅⋅* Dataset: <br>
+⋅⋅*⋅⋅*⋅⋅* Project: <br>
+⋅⋅*⋅⋅*⋅⋅*⋅⋅*⋅⋅* about.json (General information about the project) <br>
+⋅⋅*⋅⋅*⋅⋅*⋅⋅*⋅⋅* contributors.json (All the contributors of the project) <br>
+⋅⋅*⋅⋅*⋅⋅*⋅⋅*⋅⋅* externals.csv (All the externals contributors of the project) <br>
+⋅⋅*⋅⋅*⋅⋅*⋅⋅*⋅⋅* pull_requests.json (All the pull requests of the project) <br>
+⋅⋅*⋅⋅*⋅⋅*⋅⋅*⋅⋅* pull_requests_files.json (Files used in each merged/closed pull request) <br>
+⋅⋅*⋅⋅*⋅⋅*⋅⋅*⋅⋅* unit_test_files.csv (Pull requests files that are probably related to unit tests) <br>
+⋅⋅*⋅⋅*⋅⋅*⋅⋅*⋅⋅* merged_pull_requests_summary.csv (General information about each merged pull request) <br>
+⋅⋅*⋅⋅*⋅⋅*⋅⋅*⋅⋅* merged_pull_requests_summary.csv (General information about each closed pull request) <br>
 
 ## Visualizing the charts:
 With the dataset in hands, you can reproduce the charts using "<i>charts.R</i>" [[3]](https://github.com/fronchetti/CHASE-2018/blob/master/charts.R). The values defined in the lines of this script were manually written, based on the values that we found generating subsets for each project in the dataset. We created these subsets using conditionals that can be seen in "<i>script.R</i>" [[4]](https://github.com/fronchetti/CHASE-2018/blob/master/script.R). To find merged pull requests created by internals that attended to the best pratice three, for example, we created the conditional "<i>user_type == "Internals" & second_line_is_blank == "True"</i>", using data from the <i>merged_pull_requests_summary.csv</i> file of each project.
