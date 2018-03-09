@@ -6,7 +6,7 @@ If you want to create your own version of the dataset execute the file "<i>scrip
 
 Tips for dataset replication:
 * In line 237, you can add more projects to be extracted (They need to be on GitHub).
-* Between line 226 and 233 you can decide which of the dataset files you want to extract using the script. For example, if you want just the contributors of the projects use only R.contributors() and comment on the remaining lines. But pay attention, some files just can be extracted when others were collected, so be careful.
+* Between line 226 and 233 you can decide which of the dataset files you want to extract using the script. For example, if you just want the contributors of the projects use just the R.contributors() method and comment on the remaining lines. But pay attention, some files just can be extracted when others were already collected, so be careful.
 
 ### Dataset Structure:
 ⋅⋅* Dataset: <br>
