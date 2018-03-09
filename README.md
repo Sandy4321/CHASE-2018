@@ -24,4 +24,4 @@ Tips for dataset replication:
 With the dataset in hands, you can reproduce the charts using "<i>charts.R</i>" [[3]](https://github.com/fronchetti/CHASE-2018/blob/master/charts.R). The values defined in the lines of this script were manually written, based on the values that we found generating subsets for each project in the dataset. We created these subsets using conditionals that can be seen in "<i>script.R</i>" [[4]](https://github.com/fronchetti/CHASE-2018/blob/master/script.R). To find merged pull requests created by internals that attended to the best pratice three, for example, we created the conditional "<i>user_type == "Internals" & second_line_is_blank == "True"</i>", using data from the <i>merged_pull_requests_summary.csv</i> file of each project.
 
 ## Help?
-Send me an e-mail: fronchett @ usp . br
+Send me an e-mail: fronchetti at usp . br
