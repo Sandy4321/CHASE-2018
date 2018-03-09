@@ -180,9 +180,9 @@ class Repository():
         if os.path.isfile(pulls_summary_file) and os.path.isfile(pulls_files_file):
             input_file = open(pulls_summary_file, 'r')
             reader = csv.DictReader(input_file)
-            #output_file = open(pulls_summary_file_updated, 'w')
-            #writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames + ['number_of_test_files'])
-            #writer.writeheader()
+            output_file = open(pulls_summary_file_updated, 'w')
+            writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames + ['number_of_test_files'])
+            writer.writeheader()
             output_file = open(self.folder + '/unit_test_files.csv', 'w')
             writer = csv.DictWriter(output_file, fieldnames=['pull_request', 'unit_test_files'])
             writer.writeheader()
@@ -223,14 +223,14 @@ def repositories_in_parallel(project):
     folder = dataset_folder + project['name']
 
     R = Repository(collector, folder)
-    # R.about()
-    # R.contributors()
-    # R.pull_requests()
-    # R.pull_requests_files()
+    R.about()
+    R.contributors()
+    R.pull_requests()
+    R.pull_requests_files()
     R.pull_requests_files_analysis()
-    # R.closed_pull_requests_summary()
-    # R.update_summaries()
-    # R.update_second_line_is_blank()
+    R.closed_pull_requests_summary()
+    R.update_summaries()
+    R.update_second_line_is_blank()
 
 if __name__ == '__main__':
     dataset_folder = 'Dataset/'
