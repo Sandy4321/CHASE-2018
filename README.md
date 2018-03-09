@@ -9,16 +9,16 @@ Tips for dataset replication:
 * Between line 226 and 233 you can decide which of the dataset files you want to extract using the script. For example, if you want just the contributors of the projects use only R.contributors() and comment on the remaining lines. But pay attention, some files just can be extracted when others were collected, so be careful.
 
 ### Dataset Structure:
-. Dataset <br>
-.. project <br>
-... about.json (General information about the project) <br>
-... contributors.json (All the contributors of the project) <br>
-... externals.csv (All the externals contributors of the project) <br>
-... pull_requests.json (All the pull requests of the project) <br>
-... pull_requests_files.json (Files used in each merged/closed pull request) <br>
-... unit_test_files.csv (Pull requests files that are probably related to unit tests) <br>
-... merged_pull_requests_summary.csv (General information about each merged pull request) <br>
-... merged_pull_requests_summary.csv (General information about each closed pull request) <br>
+<b>-</b> Dataset <br>
+<b>--</b> project <br>
+<b>---</b> about.json (General information about the project) <br>
+<b>---</b> contributors.json (All the contributors of the project) <br>
+<b>---</b> externals.csv (All the externals contributors of the project) <br>
+<b>---</b> pull_requests.json (All the pull requests of the project) <br>
+<b>---</b> pull_requests_files.json (Files used in each merged/closed pull request) <br>
+<b>---</b> unit_test_files.csv (Pull requests files that are probably related to unit tests) <br>
+<b>---</b> merged_pull_requests_summary.csv (General information about each merged pull request) <br>
+<b>---</b> merged_pull_requests_summary.csv (General information about each closed pull request) <br>
 
 
 ## Visualizing the charts:
