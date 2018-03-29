@@ -206,12 +206,13 @@ class Repository():
         writer = csv.DictWriter(open(self.folder + '/internals.csv', 'w'), fieldnames=fieldnames)
         writer.writeheader()
 
-        for key in sorted(internals, key=internals.get):
+        for key in sorted(internals, key=internals.get, reverse=True):
             writer.writerow({'login': key, 'url': 'https://github.com/' + key, 'number_of_contributions': internals[key]})
 
         writer = csv.DictWriter(open(self.folder + '/externals.csv', 'w'), fieldnames=fieldnames)
+        writer.writeheader()
 
-        for key in sorted(externals, key=externals.get):
+        for key in sorted(externals, key=externals.get, reverse=True):
             writer.writerow({'login': key, 'url': 'https://github.com/' + key, 'number_of_contributions': externals[key]})
 
     def pull_requests_files_analysis(self):
