@@ -234,6 +234,7 @@ def repositories_in_parallel(project):
     folder = dataset_folder + project['name']
 
     R = Repository(collector, folder)
+<<<<<<< HEAD
     # R.about()
     # R.contributors()
     # R.pull_requests()
@@ -243,6 +244,16 @@ def repositories_in_parallel(project):
     # R.update_summaries()
     # R.update_second_line_is_blank()
     R.summary_of_contributors()
+=======
+    R.about()
+    R.contributors()
+    R.pull_requests()
+    R.pull_requests_files()
+    R.pull_requests_files_analysis()
+    R.closed_pull_requests_summary()
+    R.update_summaries()
+    R.update_second_line_is_blank()
+>>>>>>> 096ac215a96acd69625cf45c0712ead2b3d771dc
 
 if __name__ == '__main__':
     dataset_folder = 'Dataset/'
