@@ -20,6 +20,39 @@ class Repository():
         if not os.path.exists(self.folder):
             os.makedirs(self.folder)
 
+    def summary_of_contributors(self):
+        contributors_file = self.folder + '/contributors.json'
+
+        if os.path.isfile(contributors_file):
+            contributors = json.load(open(contributors_file, 'r'))
+            with open('contributors.csv', 'w') as output:
+                fieldnames = ['id', 'login', 'employee-or-volunteer', 'url', 'company', 'location', 'blog', 'email', 'biography']
+                writer = csv.DictWriter(output, fieldnames=fieldnames)
+                writer.writeheader()
+                for contributor in contributors:
+                    if 'login' in contributor:
+                        try:
+                            data = self.collector.contributor(contributor['login'])
+
+                            if data['company']:
+                                data['company'] = data['company'].encode('utf-8')
+                            if data['location']:
+                                data['location'] = data['location'].encode('utf-8')
+                            if data['blog']:
+                                data['blog'] = data['blog'].encode('utf-8')
+                            if data['email']:
+                                data['email'] = data['email'].encode('utf-8')
+                            if data['bio']:
+                                data['bio'] = data['bio'].encode('utf-8')
+
+                            if data['site_admin'] == True:
+                                writer.writerow({'id': data['id'], 'login': data['login'], 'employee-or-volunteer': 'employee', 'url': data['url'], 'company': data['company'], 'location': data['location'], 'blog': data['blog'], 'email': data['email'], 'biography': data['bio']})
+                            else:
+                                writer.writerow({'id': data['id'], 'login': data['login'], 'employee-or-volunteer': 'volunteer', 'url': data['url'], 'company': data['company'], 'location': data['location'], 'blog': data['blog'], 'email': data['email'], 'biography': data['bio']})
+                        except:
+                            continue
+                    else:
+                        print contributor
     # General information about the repository (Source: API)
     def about(self):
         about_file = self.folder + '/about.json'
@@ -70,7 +103,7 @@ class Repository():
     # Summary with informations of closed pull requests. (Source: API and pull_requests.json)
     def closed_pull_requests_summary(self):
         pulls_file = self.folder + '/pull_requests.json'
-        pulls_summary_file = self.folder + '/closed_pull_requests_summary.csv'
+        pulls_summary_file = self.folder + '/pulls_closed.csv'
 
         if os.path.isfile(pulls_file) and not os.path.isfile(pulls_summary_file):
             with open(pulls_file, 'r') as pulls:
@@ -128,27 +161,6 @@ class Repository():
                                     errors.write(ex)
                                     errors.write('\n Repository:' + self.folder + '\n')
 
-    def update_second_line_is_blank(self):
-        pulls_summary_file = self.folder + '/merged_pull_requests_summary.csv'
-        pulls_summary_file_updated = self.folder + '/merged_pull_requests_summary_updated.csv'
-
-        input_file = csv.DictReader(open(pulls_summary_file, 'r'))
-        output_file = csv.DictWriter(open(pulls_summary_file_updated, 'w'), fieldnames=input_file.fieldnames)
-        output_file.writeheader()
-
-        for pull_request in input_file:
-            message = pull_request['message']
-            second_line_is_blank = False
-            lines = message.split('\n')
-
-            if len(lines) > 1:
-                if len(lines[1].strip()) == 0:
-                    second_line_is_blank = True
-
-            pull_request['second_line_is_blank'] = second_line_is_blank
-
-            output_file.writerow(pull_request)
-
     def pull_requests_files(self):
         pulls_file = self.folder + '/pull_requests.json'
         pulls_files_file = self.folder + '/pull_requests_files.json'
@@ -172,17 +184,17 @@ class Repository():
             json.dump(dictionary, outfile)
 
     def pull_requests_files_analysis(self):
-        pulls_summary_file = self.folder + '/merged_pull_requests_summary.csv' # Change it to merge if you want ;-)
-        pulls_summary_file_updated = self.folder + '/merged_pull_requests_summary_updated.csv' # Change it to merge if you want ;-)
+        pulls_summary_file = self.folder + '/pulls_merged.csv' # Change it to merge if you want ;-)
+        pulls_summary_file_updated = self.folder + '/pulls_merged_updated' # Change it to merge if you want ;-)
         pulls_files_file = self.folder + '/pull_requests_files.json'
         regex = re.compile(r'.*test.*\.[^.]+$')
 
         if os.path.isfile(pulls_summary_file) and os.path.isfile(pulls_files_file):
             input_file = open(pulls_summary_file, 'r')
             reader = csv.DictReader(input_file)
-            #output_file = open(pulls_summary_file_updated, 'w')
-            #writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames + ['number_of_test_files'])
-            #writer.writeheader()
+            output_file = open(pulls_summary_file_updated, 'w')
+            writer = csv.DictWriter(output_file, fieldnames=reader.fieldnames + ['number_of_test_files'])
+            writer.writeheader()
             output_file = open(self.folder + '/unit_test_files.csv', 'w')
             writer = csv.DictWriter(output_file, fieldnames=['pull_request', 'unit_test_files'])
             writer.writeheader()
@@ -214,9 +226,8 @@ class Repository():
                             if 'linguist' in self.folder:
                                 writer.writerow({'pull_request': 'https://github.com/github/linguist/pull/' + str(pull_request_number) + '/files', 'unit_test_files': ','.join(unit_test_files)})
 
-
                 pull_request['number_of_test_files'] = number_of_test_files
-                #writer.writerow(pull_request)
+                writer.writerow(pull_request)
 
 def repositories_in_parallel(project):
     collector = GitRepository.Repository(project['organization'], project['name'], crawler)
@@ -227,20 +238,19 @@ def repositories_in_parallel(project):
     # R.contributors()
     # R.pull_requests()
     # R.pull_requests_files()
-    R.pull_requests_files_analysis()
+    #R.pull_requests_files_analysis()
     # R.closed_pull_requests_summary()
     # R.update_summaries()
     # R.update_second_line_is_blank()
+    R.summary_of_contributors()
 
 if __name__ == '__main__':
     dataset_folder = 'Dataset/'
-    projects = [
-    {'organization':'electron','name':'electron'},
+    projects = [{'organization':'electron','name':'electron'},
     {'organization':'github','name':'linguist'},
     {'organization':'git-lfs','name':'git-lfs'},
     {'organization':'hubotio','name':'hubot'},
-    {'organization':'atom','name':'atom'}
-    ]
+    {'organization':'atom','name':'atom'}]
 
     if not os.path.exists(dataset_folder):
         os.makedirs(dataset_folder)
@@ -248,7 +258,6 @@ if __name__ == '__main__':
     api_client_id = '4161a8257efaea420c94' # Please, specify your own client id
     api_client_secret = 'd814ec48927a6bd62c55c058cd028a949e5362d4' # Please, specify your own client secret
     crawler = GitCrawler.Crawler(api_client_id, api_client_secret)
-
     # Multiprocessing technique
     parallel = multiprocessing.Pool(processes=4) # Define number of processes
     parallel.map(partial(repositories_in_parallel), projects)

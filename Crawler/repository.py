@@ -397,3 +397,6 @@ class Repository:
             page_number = page_number + 1
 
         return files
+
+    def contributor(self, name):
+        return self.github.request('users/' + name)
