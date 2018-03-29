@@ -5,6 +5,7 @@ try:
     import multiprocessing
     from datetime import datetime
     from functools import partial
+    from collections import OrderedDict
     import re
     import json
     import csv
@@ -183,6 +184,36 @@ class Repository():
         with open(pulls_files_file, 'w') as outfile:
             json.dump(dictionary, outfile)
 
+    def contributors_ranking(self):
+        pull_requests = json.load(open(self.folder + '/pull_requests.json'))
+        internals = {}
+        externals = {}
+
+        for pull_request in pull_requests:
+            author = pull_request['user']['login']
+            if pull_request['user']['site_admin'] == True:
+                if author in internals:
+                    internals[author] = internals[author] + 1
+                else:
+                    internals[author] = 1
+            else:
+                if author in externals:
+                    externals[author] = externals[author] + 1
+                else:
+                    externals[author] = 1
+
+        fieldnames = ['login','url','number_of_contributions']
+        writer = csv.DictWriter(open(self.folder + '/internals.csv', 'w'), fieldnames=fieldnames)
+        writer.writeheader()
+
+        for key in sorted(internals, key=internals.get):
+            writer.writerow({'login': key, 'url': 'https://github.com/' + key, 'number_of_contributions': internals[key]})
+
+        writer = csv.DictWriter(open(self.folder + '/externals.csv', 'w'), fieldnames=fieldnames)
+
+        for key in sorted(externals, key=externals.get):
+            writer.writerow({'login': key, 'url': 'https://github.com/' + key, 'number_of_contributions': externals[key]})
+
     def pull_requests_files_analysis(self):
         pulls_summary_file = self.folder + '/pulls_merged.csv' # Change it to merge if you want ;-)
         pulls_summary_file_updated = self.folder + '/pulls_merged_updated' # Change it to merge if you want ;-)
@@ -242,7 +273,8 @@ def repositories_in_parallel(project):
     # R.closed_pull_requests_summary()
     # R.update_summaries()
     # R.update_second_line_is_blank()
-    R.summary_of_contributors()
+    # R.summary_of_contributors()
+    R.contributors_ranking()
 
 if __name__ == '__main__':
     dataset_folder = 'Dataset/'
